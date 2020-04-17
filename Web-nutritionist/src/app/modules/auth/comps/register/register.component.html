@@ -1,0 +1,95 @@
+<div class="container">
+    <div class="card">
+        <div class="card-divider">
+            <h4 class="text-center">Registro de nutriologo</h4>
+        </div>
+        <div class="card-section" style="padding: 1rem;">
+            <form [formGroup]="form">
+                <div class="grid-container">
+                    <div style="text-align: left;color: grey;">
+                        <h6>Informacion personal</h6>
+                    </div>
+                    <div class="grid-x grid-padding-x">
+                        <div class="medium-3 cell">
+                            <label>Nombre(s)
+                                <input type="text" formControlName="first_name" placeholder="Nombre(s)">
+                            </label>
+                        </div>
+                        <div class="medium-3 cell">
+                            <label>Apellido
+                                <input type="text" formControlName="last_name" placeholder="Apellido">
+                            </label>
+                        </div>
+                        <div class="medium-3 cell">
+                            <label>Fecha de nacimiento
+                                <input type="date" placeholder="Fecha de nacimiento" placement="top"
+                                    formControlName="birth_date">
+                            </label>
+                        </div>
+                        <div class="medium-3 cell">
+                            <label>Genero
+                                <select formControlName="gender">
+                                    <option *ngFor="let g of genders" [value]="g">{{g}}</option>
+                                </select>
+                            </label>
+                        </div>
+                    </div>
+                    <div style="text-align: left;color: grey;">
+                        <h6>Informacion de contacto</h6>
+                    </div>
+                    <div class="grid-x grid-padding-x">
+                        <div class="medium-6 cell">
+                            <label>Numero celular
+                                <input type="tel" formControlName="phone" placeholder="123-123-1234" />
+                            </label>
+                        </div>
+                        <div class="medium-6 cell">
+                            <label>Correo electronico
+                                <input type="email" formControlName="email" placeholder="Correo electronico">
+                            </label>
+                        </div>
+                    </div>
+                    <div class="grid-x grid-padding-x">
+                        <div class="medium-4 cell">
+                            <label>Pais
+                                <select formControlName="countrie">
+                                    <option *ngFor="let c of countries" [value]="c">{{c}}</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="medium-4 cell">
+                            <label>Estado
+                                <select formControlName="state">
+                                    <option *ngFor="let s of states" [value]="s">{{s}}</option>
+                                </select>
+                            </label>
+                        </div>
+                        <div class="medium-4 cell">
+                            <label>Ciudad
+                                <select formControlName="citie">
+                                    <option *ngFor="let ct of cities" [value]="ct">{{ct}}</option>
+                                </select>
+                            </label>
+                        </div>
+                    </div>
+                    <div>
+                        <label>Direccion
+                            <input type="text" formControlName="direction" placeholder="Direccion" />
+                        </label>
+                    </div>
+                    <div style="text-align: left;color: grey;">
+                        <h6>Informacion profesional</h6>
+                    </div>
+                    <label>Cedula profesional
+                        <input type="text" formControlName="card_id" placeholder="Cedula profesional" />
+                    </label>
+                    <label>Imagen representativa
+                        <input type="file" formControlName="image" accept="image/*" placeholder="Imagen representativa" />
+                    </label>
+                    <button (click)="submit()" class="button small expanded">Guardar Informacion</button>
+                </div>
+                
+            </form>
+        </div>
+    </div>
+</div>

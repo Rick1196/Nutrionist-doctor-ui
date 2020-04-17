@@ -1,0 +1,23 @@
+<div class="top-bar">
+    <div class="top-bar-left">
+        <button class="menu-icon" style="margin-right: 1rem;" (click)="offcanvasLeft.show()" type="button" data-toggle="responsive-menu"></button>
+        <div class="title-bar-title" style="color: white;">Nutrionist</div>
+    </div>
+</div>
+<div [offcanvas]="isOffcanvas" style="padding: 0;" class="off-canvas position-left" id="offCanvasMenuLeft" aria-hidden="true"
+    #offcanvasLeft="bs-offcanvas">
+    <div style="padding: 2rem; align-content: center;background-color: #1779ba;">
+        <h4 style="color: white;">Opciones</h4>
+    </div>
+    <button class="close-button" aria-label="Close Menu" aria-controls="offCanvasMenu" type="button"
+        (click)="offcanvasLeft.hide()">
+        <span aria-hidden="true" style="color: white;">×</span>
+    </button>
+    <ul class="menu vertical">
+        <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
+            <a routerLink="/auth/login" (click)="offcanvasLeft.hide()"><fa-icon [icon]="['fas','sign-in-alt']"></fa-icon> Iniciar sesion</a>
+            <a routerLink="/components/callouts"><fa-icon [icon]="['fas','sign-out-alt']"></fa-icon> Cerrar sesion</a>
+            <a routerLink="/auth/register" (click)="offcanvasLeft.hide()"><fa-icon [icon]="['fas','user-plus']"></fa-icon> Registrarse</a>
+        </li>
+    </ul>
+</div>
