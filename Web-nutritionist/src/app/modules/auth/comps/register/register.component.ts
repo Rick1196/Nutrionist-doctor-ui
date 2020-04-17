@@ -27,7 +27,9 @@ export class RegisterComponent implements OnInit {
     citie: new FormControl('',Validators.required),
     direction: new FormControl('',Validators.required),
     card_id: new FormControl('',Validators.required),
-    image: new FormControl('', Validators.required)
+    image: new FormControl('', Validators.required),
+    user_name: new FormControl('', Validators.required),
+    password: new FormControl('', [Validators.required,Validators.minLength(8)]),
   });
   constructor() { }
 
