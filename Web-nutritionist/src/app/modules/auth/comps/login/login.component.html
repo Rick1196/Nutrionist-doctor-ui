@@ -1,1 +1,19 @@
-<p>login works!</p>
+<div class="container">
+    <div class="card">
+        <div class="card-divider">
+            <h4 class="text-center">Inicio de sesion</h4>
+        </div>
+        <div class="card-section" style="padding: 1rem;">
+            <form [formGroup]="form">
+                <label>Usuario
+                    <input type="text" formControlName="user_name" placeholder="Usuario" />
+                </label>
+                <label>Contraseña
+                    <input type="password" formControlName="password" placeholder="Contraseña" />
+                </label>
+                <button (click)="submit()" class="button small expanded">Iniciar sesion</button>
+            </form>
+        </div>
+
+    </div>
+</div>
