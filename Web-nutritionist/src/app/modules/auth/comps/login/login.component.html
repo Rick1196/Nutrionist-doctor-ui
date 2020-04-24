@@ -6,12 +6,14 @@
         <div class="card-section" style="padding: 1rem;">
             <form [formGroup]="form">
                 <label>Usuario
-                    <input type="text" formControlName="user_name" placeholder="Usuario" />
+                    <input type="text"  formControlName="user_name" placeholder="Usuario" />
+                    <label class="form-error is-visible" *ngIf="form.controls.user_name.invalid  && form.controls.user_name.touched">El nombre de usuario es una campo <strong>requerido</strong></label>
                 </label>
                 <label>Contraseña
                     <input type="password" formControlName="password" placeholder="Contraseña" />
+                    <label class="form-error is-visible" *ngIf="form.controls.password.invalid  && form.controls.password.touched">La contraseña es una campo <strong>requerido</strong></label>
                 </label>
-                <button (click)="submit()" class="button small expanded">Iniciar sesion</button>
+                <button (click)="submit()" class="button small expanded" [disabled]="form.valid == false">Iniciar sesion</button>
             </form>
         </div>
 

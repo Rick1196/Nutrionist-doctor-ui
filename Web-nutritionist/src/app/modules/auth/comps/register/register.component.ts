@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
+import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
 
 @Component({
   selector: 'app-register',
@@ -7,6 +7,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
+  file:any;
   genders:any = [
     'Hombre',
     'Mujer',
@@ -27,18 +28,43 @@ export class RegisterComponent implements OnInit {
     citie: new FormControl('',Validators.required),
     direction: new FormControl('',Validators.required),
     card_id: new FormControl('',Validators.required),
-    image: new FormControl('', Validators.required),
+    image: new FormControl('', [Validators.required, this.fileValidator]),
     user_name: new FormControl('', Validators.required),
     password: new FormControl('', [Validators.required,Validators.minLength(8)]),
   });
-  constructor() { }
+  constructor(private cd: ChangeDetectorRef) { }
 
   ngOnInit(): void {
+    console.log(this.form.controls.image);
+    
+  }
+
+  fileValidator(img:AbstractControl){
+    let flag = false;
+    if(!['jpg','jpeg','svg','png'].includes(img.value.split('.')[img.value.split('.').length - 1])) flag =  true;
+    console.log(flag);
+    
+    return {extension:flag};
+  }
+
+  onFileChange(event) {
+    let reader = new FileReader();
+   
+    if(event.target.files && event.target.files.length) {
+      const [file] = event.target.files;
+      reader.readAsDataURL(file);
+    
+      reader.onload = () => {
+        this.file = reader.result
+      };
+
+    }
   }
 
   submit(){
-    console.log(this.form.value);
-    
+    let values = this.form.value;
+    values.image = this.file;
+    console.log(values);
   }
 
 }

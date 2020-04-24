@@ -14,9 +14,11 @@ export class LoginComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+    console.log(this.form);
+
   }
   submit():void{
-    console.log(this.form.value);
+    console.log(this.form.valid);
     
   }
 
