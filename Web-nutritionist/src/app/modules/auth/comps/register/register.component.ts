@@ -1,5 +1,6 @@
 import { Component, OnInit, ChangeDetectorRef } from '@angular/core';
 import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/forms';
+import { DomSanitizer} from '@angular/platform-browser';
 
 @Component({
   selector: 'app-register',
@@ -8,6 +9,7 @@ import { FormGroup, FormControl, Validators, AbstractControl } from '@angular/fo
 })
 export class RegisterComponent implements OnInit {
   file:any;
+  //imageUlr:any;
   genders:any = [
     'Hombre',
     'Mujer',
@@ -32,7 +34,7 @@ export class RegisterComponent implements OnInit {
     user_name: new FormControl('', Validators.required),
     password: new FormControl('', [Validators.required,Validators.minLength(8)]),
   });
-  constructor(private cd: ChangeDetectorRef) { }
+  constructor(private cd: ChangeDetectorRef, private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
     console.log(this.form.controls.image);
@@ -56,6 +58,7 @@ export class RegisterComponent implements OnInit {
     
       reader.onload = () => {
         this.file = reader.result
+        //this.imageUlr = this.sanitizer.bypassSecurityTrustResourceUrl(this.file);
       };
 
     }
