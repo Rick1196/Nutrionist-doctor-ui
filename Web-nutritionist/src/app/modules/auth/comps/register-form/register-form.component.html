@@ -64,13 +64,17 @@
                     <div class="medium-6 cell">
                         <label>Correo electronico(opcional)
                             <input type="email" formControlName="email" placeholder="Correo electronico">
+                            <label class="form-error is-visible"
+                                *ngIf="form.controls.email.invalid  && form.controls.email.touched">Introducir un correo
+                                electronico valido</label>
+
                         </label>
                     </div>
                 </div>
                 <div class="grid-x grid-padding-x">
                     <div class="medium-4 cell">
                         <label>Pais
-                            <select formControlName="countrie">
+                            <select formControlName="countrie" #st (change)="filterStates(st.value)">
                                 <option *ngFor="let c of countries" [value]="c">{{c}}</option>
                             </select>
                             <label class="form-error is-visible"
@@ -81,7 +85,7 @@
                     </div>
                     <div class="medium-4 cell">
                         <label>Estado
-                            <select formControlName="state">
+                            <select formControlName="state" #ct (change)="filterCitie(ct.value)">
                                 <option *ngFor="let s of states" [value]="s">{{s}}</option>
                             </select>
                             <label class="form-error is-visible"
@@ -147,14 +151,9 @@
                 <input type="file" id="image" formControlName="image" accept="image/*"
                     placeholder="Imagen representativa" (change)="onFileChange($event)" class="show-for-sr" />
                 <label class="form-error is-visible"
-                    *ngIf="form.controls.image.errors.extension == true && form.controls.image.touched">
+                    *ngIf="form.controls.image.invalid == true && form.controls.image.touched">
                     Por favor, seleccione una archivo valido
                 </label>
-                <label class="form-error is-visible"
-                    *ngIf="form.controls.image.errors.required == true && form.controls.image.touched">La
-                    imagen representativa
-                    es
-                    una campo <strong>requerido</strong></label>
                 <button (click)="submit()" class="button small expanded">Guardar Informacion</button>
             </div>
         </form>

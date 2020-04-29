@@ -1,20 +1,40 @@
-<div class="card">
-    <div class="card-divider">
-        <h4 class="text-center">Verificacion de usuario</h4>
-    </div>
-    <div class="card-section" style="padding: 1rem;">
-        <h3 style="text-align: center;">Hemos enviado un codigo de verificacion al numero celular que proporcionaste
-        </h3>
-        <label style="text-align: center;">Codigo de verificacion</label>
-
-        <input maxlength='4' />
-        <div class="grid-x grid-padding-x">
-            <div class="medium-6 cell">
-                <button class="button expanded">Verificar codigo</button>
-            </div>
-            <div class="medium-6 cell">
-                <button class="button expanded warning">No tengo el codigo</button>
-            </div>
+<div class="container">
+    <div class="card" *ngIf="success == false; else verified">
+        <div class="card-divider">
+            <h4 class="text-center">Verificacion de usuario</h4>
+        </div>
+        <div class="card-section" style="padding: 1rem;">
+            <h3 style="text-align: center;">Hemos enviado un codigo de verificacion al numero celular que proporcionaste
+            </h3>
+            <form [formGroup]="form">
+                <label style="text-align: center;">Codigo de verificacion</label>
+                <input maxlength='4' formControlName="confirmation_code"/>
+                <label class="form-error is-visible" style="text-align: center;" *ngIf="form.controls.confirmation_code.invalid">
+                    Por favor, introducir un codigo de verificacion valido
+                </label>
+                <div class="grid-x grid-padding-x">
+                    <div class="medium-6 cell">
+                        <button (click)="confirm()" class="button expanded">Verificar codigo</button>
+                    </div>
+                    <div class="medium-6 cell">
+                        <button class="button expanded warning">No tengo el codigo</button>
+                    </div>
+                </div>
+            </form>
         </div>
     </div>
 </div>
+
+<ng-template #verified>
+    <div class="card">
+        <div class="card-divider">
+            <h4>Verificacion de usuario</h4>
+        </div>
+        <div class="card-section" style="padding: 1rem;">
+            <h2 style="text-align: center;">Verificacion de usuario exitosa</h2>
+            <a [routerLink]="['/auth/login']" routerLinkActive="router-link-active"
+                class="button small expanded">Iniciar sesion</a>
+
+        </div>
+    </div>
+</ng-template>

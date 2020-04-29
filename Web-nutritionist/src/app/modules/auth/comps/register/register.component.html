@@ -1,4 +1,3 @@
 <div class="container">
-    <app-register-form *ngIf="stage == 0" (onSuccess)="changeStage($event)"></app-register-form>
-    <app-verification-form *ngIf="stage == 1" (onSuccess)="changeStage($event)"></app-verification-form>
+    <app-register-form (onSuccess)="changeStage($event)"></app-register-form>
 </div>

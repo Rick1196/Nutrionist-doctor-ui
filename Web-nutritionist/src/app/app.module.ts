@@ -7,11 +7,13 @@ import { ContainerComponent } from './common/comps/container/container.component
 import {FoundationModule} from './common/modules/foundation/foundation.module';
 import { FontAwesomeModule,  } from '@fortawesome/angular-fontawesome';
 import {ReactiveFormsModule, FormsModule} from '@angular/forms';
-import {HttpClientModule} from '@angular/common/http'
+import {HttpClientModule} from '@angular/common/http';
+import { LoadingComponent } from './common/comps/loading/loading.component'
 @NgModule({
   declarations: [
     AppComponent,
-    ContainerComponent
+    ContainerComponent,
+    LoadingComponent
   ],
   imports: [
     BrowserModule,
