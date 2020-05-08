@@ -1,5 +1,6 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
+import { CookieService } from 'ngx-cookie-service';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -19,9 +20,9 @@ import { LoadingComponent } from './common/comps/loading/loading.component'
     BrowserModule,
     AppRoutingModule,
     FoundationModule,
-    FontAwesomeModule,ReactiveFormsModule, FormsModule, HttpClientModule
+    FontAwesomeModule,ReactiveFormsModule, FormsModule, HttpClientModule,
   ],
-  providers: [],
+  providers: [CookieService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

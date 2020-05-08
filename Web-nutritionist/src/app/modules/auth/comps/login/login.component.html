@@ -6,14 +6,24 @@
         <div class="card-section" style="padding: 1rem;">
             <form [formGroup]="form">
                 <label>Usuario
-                    <input type="text"  formControlName="user_name" placeholder="Usuario" />
-                    <label class="form-error is-visible" *ngIf="form.controls.user_name.invalid  && form.controls.user_name.touched">El nombre de usuario es una campo <strong>requerido</strong></label>
+                    <input type="text" formControlName="user_name" #user placeholder="Usuario" />
+                    <label class="form-error is-visible"
+                        *ngIf="form.controls.user_name.invalid  && form.controls.user_name.touched">El nombre de usuario
+                        es una campo <strong>requerido</strong></label>
                 </label>
                 <label>Contraseña
                     <input type="password" formControlName="password" placeholder="Contraseña" />
-                    <label class="form-error is-visible" *ngIf="form.controls.password.invalid  && form.controls.password.touched">La contraseña es una campo <strong>requerido</strong></label>
+                    <label class="form-error is-visible"
+                        *ngIf="form.controls.password.invalid  && form.controls.password.touched">La contraseña es una
+                        campo <strong>requerido</strong></label>
                 </label>
-                <button (click)="submit()" class="button small expanded" [disabled]="form.valid == false">Iniciar sesion</button>
+                <div *ngIf="errorResponse" class="callout warning">
+                    {{errorResponse}}
+                </div>
+                <button (click)="submit()" class="button small expanded" [disabled]="form.valid == false">Iniciar
+                    sesion</button>
+                <a [routerLink]="['/auth/verify']" *ngIf="user.value" [queryParams]="{user_name: user.value}"
+                    queryParamsHandling="merge">Verificar usuario</a>
             </form>
         </div>
 
