@@ -1,23 +1,39 @@
-<div class="top-bar sticky">
-    <div class="top-bar-left"> 
-        <button class="menu-icon" style="margin-right: 1rem;" (click)="offcanvasLeft.show()" type="button" data-toggle="responsive-menu"></button>
-        <div class="title-bar-title" style="color: white;">Nutrionist</div>
-    </div>
-</div>
-<div [offcanvas]="isOffcanvas" style="padding: 0;" class="off-canvas position-left" id="offCanvasMenuLeft" aria-hidden="true"
-    #offcanvasLeft="bs-offcanvas">
-    <div style="padding: 2rem; align-content: center;background-color: #1779ba;">
-        <h4 style="color: white;">Opciones</h4>
-    </div>
-    <button class="close-button" aria-label="Close Menu" aria-controls="offCanvasMenu" type="button"
-        (click)="offcanvasLeft.hide()">
-        <span aria-hidden="true" style="color: white;">×</span>
+<nav class="navbar navbar-expand-lg navbar-dark top-bar sticky">
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo01"
+        aria-controls="navbarTogglerDemo01" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
     </button>
-    <ul class="menu vertical">
-        <li routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }">
-            <a routerLink="/auth/login" (click)="offcanvasLeft.hide()"><fa-icon [icon]="['fas','sign-in-alt']"></fa-icon> Iniciar sesion</a>
-            <a routerLink="/components/callouts"><fa-icon [icon]="['fas','sign-out-alt']"></fa-icon> Cerrar sesion</a>
-            <a routerLink="/auth/register" (click)="offcanvasLeft.hide()"><fa-icon [icon]="['fas','user-plus']"></fa-icon> Registrarse</a>
+    <div class="collapse navbar-collapse" id="navbarTogglerDemo01">
+        <a class="navbar-brand" style="color: white;">Nutritionist</a>
+        <ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="color: white;" *ngIf="!session;else loggedin">
+            <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Usuario
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" [routerLink]="['/auth/login']"
+                        routerLinkActive="router-link-active">Iniciar
+                        sesion</a>
+                    <a class="dropdown-item" [routerLink]="['/auth/register']"
+                        routerLinkActive="router-link-active">Registrarse</a>
+                </div>
+
+            </li>
+        </ul>
+    </div>
+</nav>
+
+<ng-template #loggedin>
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="color: white;">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{session.user}}
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" (click)="logout()">Cerrar sesion</a>
+            </div>
         </li>
     </ul>
-</div>
+</ng-template>

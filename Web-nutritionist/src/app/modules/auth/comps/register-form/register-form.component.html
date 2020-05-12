@@ -1,161 +1,202 @@
-<div class="card">
-    <div class="card-divider">
-        <h4 class="text-center">Registro de nutriologo</h4>
-    </div>
-    <div class="card-section" style="padding: 1rem;">
-        <form [formGroup]="form">
-            <div class="grid-container">
-                <div style="text-align: left;color: grey;">
-                    <h6>Informacion personal</h6>
-                </div>
-                <div class="grid-x grid-padding-x">
-                    <div class="medium-3 cell">
-                        <label>Nombre(s)
-                            <input type="text" formControlName="first_name" placeholder="Nombre(s)">
-                            <label class="form-error is-visible"
-                                *ngIf="form.controls.first_name.invalid  && form.controls.first_name.touched">El
-                                nombre es una campo <strong>requerido</strong></label>
+<div class="container">
+    <div class="card">
+        <div class="card-header">
+            <h4 class="text-center">Registro de nutriologo</h4>
+        </div>
+        <div class="card-body" style="padding: 1em;">
+            <form [formGroup]="form">
+                <div class="grid-container">
+                    <div style="text-align: left;color: grey;">
+                        <h6>Informacion de inicio de sesion</h6>
+                    </div>
+                    <div class="row" style="margin-bottom: 1em;">
+                        <div class="col">
+                            <label>Imagen representativa</label>
+                            <div class="custom-file" *ngIf="!imageUrl;else image">
+                                <input  type="file" id="image" class="custom-file-input" formControlName="image"
+                                    accept="image/*" placeholder="Imagen representativa" (change)="onFileChange($event)"
+                                    [ngClass]="(form.controls.image.invalid == true)?'is-invalid':''" />
+                                <label for="image" class="custom-file-label">Seleccionar imagen</label>
 
-                        </label>
+                                <div class="invalid-feedback">
+                                    Por favor, seleccione una archivo valido
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label>Usuario</label>
+                                <input trim type="text" class="form-control"
+                                    [ngClass]="(form.controls.user_name.invalid)?'is-invalid':''"
+                                    formControlName="user_name" placeholder="Usuario" />
+                                <div class="invalid-feedback">
+                                    El
+                                    nombre de usuario
+                                    es
+                                    una campo <strong>requerido</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col">
+                            <div class="form-group">
+                                <label>Contraseña</label>
+                                <input type="password" class="form-control"
+                                    [ngClass]="(form.controls.password.invalid)?'is-invalid':''"
+                                    formControlName="password" placeholder="Contraseña" />
+                                <div class="invalid-feedback">
+                                    Debe
+                                    introducir una Contraseña valida
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="medium-3 cell">
-                        <label>Apellido
-                            <input type="text" formControlName="last_name" placeholder="Apellido">
-                            <label class="form-error is-visible"
-                                *ngIf="form.controls.last_name.invalid  && form.controls.last_name.touched">El
-                                apellido es una campo <strong>requerido</strong></label>
-                        </label>
+                    <div style="text-align: left;color: grey;">
+                        <h6>Informacion personal</h6>
                     </div>
-                    <div class="medium-3 cell">
-                        <label>Fecha de nacimiento
-                            <input type="date" placeholder="Fecha de nacimiento" placement="top"
-                                formControlName="birth_date">
-                            <label class="form-error is-visible"
-                                *ngIf="form.controls.birth_date.invalid  && form.controls.birth_date.touched">La
-                                fecha de nacimiento es una campo <strong>requerido</strong></label>
-                        </label>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Nombre(s)</label>
+                                <input type="text" class="form-control"
+                                    [ngClass]="(form.controls.first_name.invalid)?'is-invalid':''"
+                                    formControlName="first_name" placeholder="Nombre(s)">
+                                <div class="invalid-feedback">
+                                    El
+                                    nombre es una campo <strong>requerido</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Apellido</label>
+                                <input type="text" class="form-control"
+                                    [ngClass]="(form.controls.last_name.invalid)?'is-invalid':''"
+                                    formControlName="last_name" placeholder="Apellido">
+                                <div class="invalid-feedback">
+                                    El
+                                    apellido es una campo <strong>requerido</strong>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="medium-3 cell">
-                        <label>Genero
-                            <select formControlName="gender">
-                                <option *ngFor="let g of genders" [value]="g">{{g}}</option>
-                            </select>
-                            <label class="form-error is-visible"
-                                *ngIf="form.controls.gender.invalid  && form.controls.gender.touched">Debe
-                                seleccionar un genero</label>
-
-                        </label>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Fecha de nacimiento</label>
+                                <input formControlName="birth_date" type="date" class="form-control"
+                                    [ngClass]="(form.controls.birth_date.invalid)?'is-invalid':''"
+                                    placeholder="Fecha de nacimiento" placement="top" />
+                                <div class="invalid-feedback">
+                                    La
+                                    fecha de nacimiento es una campo <strong>requerido</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Genero</label>
+                                <select formControlName="gender" class="custom-select"
+                                    [ngClass]="(form.controls.gender.invalid)?'is-invalid':''">
+                                    <option *ngFor="let g of genders" [value]="g">{{g}}</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Debe
+                                    seleccionar un genero
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div style="text-align: left;color: grey;">
-                    <h6>Informacion de contacto</h6>
-                </div>
-                <div class="grid-x grid-padding-x">
-                    <div class="medium-6 cell">
-                        <label>Numero celular
-                            <input type="tel" formControlName="phone" placeholder="123-123-1234" />
-                            <label class="form-error is-visible"
-                                *ngIf="form.controls.phone.invalid  && form.controls.phone.touched">El numero
-                                celular es
-                                una campo <strong>requerido</strong></label>
-
-                        </label>
+                    <div style="text-align: left;color: grey;">
+                        <h6>Informacion de contacto</h6>
                     </div>
-                    <div class="medium-6 cell">
-                        <label>Correo electronico(opcional)
-                            <input type="email" formControlName="email" placeholder="Correo electronico">
-                            <label class="form-error is-visible"
-                                *ngIf="form.controls.email.invalid  && form.controls.email.touched">Introducir un correo
-                                electronico valido</label>
-
-                        </label>
+                    <div class="row">
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Numero celular</label>
+                                <input class="form-control" type="tel"
+                                    [ngClass]="(form.controls.phone.invalid)?'is-invalid':''" formControlName="phone"
+                                    placeholder="123-123-1234" />
+                                <div class="invalid-feedback">
+                                    El numero
+                                    celular es
+                                    una campo <strong>requerido</strong>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-6">
+                            <div class="form-group">
+                                <label>Correo electronico</label>
+                                <input class="form-control" type="email"
+                                    [ngClass]="(form.controls.email.invalid)?'is-invalid':''" formControlName="email"
+                                    placeholder="Correo electronico">
+                                <div class="invalid-feedback">
+                                    El numero
+                                    celular es
+                                    una campo <strong>requerido</strong>
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
-                <div class="grid-x grid-padding-x">
-                    <div class="medium-4 cell">
-                        <label>Pais
-                            <select formControlName="countrie" #st (change)="filterStates(st.value)">
-                                <option *ngFor="let c of countries" [value]="c">{{c}}</option>
-                            </select>
-                            <label class="form-error is-visible"
-                                *ngIf="form.controls.countrie.invalid  && form.controls.countrie.touched">Debe
-                                seleccionar un pais</label>
-
-                        </label>
+                    <div class="row">
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label>Pais</label>
+                                <select class="custom-select"
+                                    [ngClass]="(form.controls.countrie.invalid)?'is-invalid':''"
+                                    formControlName="countrie" #st (change)="filterStates(st.value)">
+                                    <option *ngFor="let c of countries" [value]="c">{{c}}</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Debe
+                                    seleccionar un pais
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label>Estado</label>
+                                <select class="custom-select" [ngClass]="(form.controls.state.invalid)?'is-invalid':''"
+                                    formControlName="state" #ct (change)="filterCitie(ct.value)">
+                                    <option *ngFor="let s of states" [value]="s">{{s}}</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Debe seleccionar
+                                    un estado
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-4">
+                            <div class="form-group">
+                                <label>Ciudad</label>
+                                <select class="custom-select" [ngClass]="(form.controls.citie.invalid)?'is-invalid':''"
+                                    formControlName="citie">
+                                    <option *ngFor="let ct of cities" [value]="ct">{{ct}}</option>
+                                </select>
+                                <div class="invalid-feedback">
+                                    Debe de
+                                    seleccionar una ciudad
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="medium-4 cell">
-                        <label>Estado
-                            <select formControlName="state" #ct (change)="filterCitie(ct.value)">
-                                <option *ngFor="let s of states" [value]="s">{{s}}</option>
-                            </select>
-                            <label class="form-error is-visible"
-                                *ngIf="form.controls.state.invalid  && form.controls.state.touched">Debe seleccionar
-                                una estado</label>
-
-                        </label>
-                    </div>
-                    <div class="medium-4 cell">
-                        <label>Ciudad
-                            <select formControlName="citie">
-                                <option *ngFor="let ct of cities" [value]="ct">{{ct}}</option>
-                            </select>
-                            <label class="form-error is-visible"
-                                *ngIf="form.controls.citie.invalid  && form.controls.citie.touched">Debe de
-                                seleccionar una ciudad</label>
-                        </label>
-                    </div>
-                </div>
-                <div>
-                    <label>Direccion
-                        <input type="text" formControlName="direction" placeholder="Direccion" />
-                        <label class="form-error is-visible"
-                            *ngIf="form.controls.direction.invalid  && form.controls.direction.touched">La direccion
+                    <div style="margin-bottom: 1em;">
+                        <label>Direccion</label>
+                        <input type="text" class="form-control"
+                            [ngClass]="(form.controls.direction.invalid)?'is-invalid':''" formControlName="direction"
+                            placeholder="Direccion" />
+                        <div class="invalid-feedback">
+                            La direccion
                             es
-                            una campo <strong>requerido</strong></label>
-                    </label>
-                </div>
-                <div style="text-align: left;color: grey;">
-                    <h6>Informacion de inicio de sesion</h6>
-                </div>
-                <div class="grid-x grid-padding-x">
-                    <div class="medium-6 cell">
-                        <label>Usuario
-                            <input type="text" formControlName="user_name" placeholder="Usuario" />
-                            <label class="form-error is-visible"
-                                *ngIf="form.controls.user_name.invalid  && form.controls.user_name.touched">El
-                                nombre de usuario
-                                es
-                                una campo <strong>requerido</strong></label>
-                        </label>
+                            una campo <strong>requerido</strong>
+                        </div>
                     </div>
-                    <div class="medium-6 cell">
-                        <label>Contraseña
-                            <input type="password" formControlName="password" placeholder="Contraseña" />
-                            <label class="form-error is-visible"
-                                *ngIf="form.controls.password.invalid  && form.controls.password.touched">Debe
-                                introducir una Contraseña valida</label>
-                        </label>
-                    </div>
+                    <button (click)="submit()" [disabled]="!form.valid"
+                        class="btn btn-outline-secondary btn-block">Guardar Informacion</button>
                 </div>
-                <div style="text-align: left;color: grey;">
-                    <h6>Informacion profesional</h6>
-                </div>
-                <label>Cedula profesional
-                    <input type="text" formControlName="card_id" placeholder="Cedula profesional" />
-                    <label class="form-error is-visible"
-                        *ngIf="form.controls.card_id.invalid  && form.controls.card_id.touched">Cedula profesionarl
-                        es
-                        una campo <strong>requerido</strong></label>
-                </label>
-                <label for="image" class="button">Seleccionar imagen representativa</label>
-                <input type="file" id="image" formControlName="image" accept="image/*"
-                    placeholder="Imagen representativa" (change)="onFileChange($event)" class="show-for-sr" />
-                <label class="form-error is-visible"
-                    *ngIf="form.controls.image.invalid == true && form.controls.image.touched">
-                    Por favor, seleccione una archivo valido
-                </label>
-                <button (click)="submit()" class="button small expanded">Guardar Informacion</button>
-            </div>
-        </form>
+            </form>
+        </div>
     </div>
 </div>
+<ng-template #image>
+    <img [src]="imageUrl" alt="..." class="img-thumbnail">
+</ng-template>

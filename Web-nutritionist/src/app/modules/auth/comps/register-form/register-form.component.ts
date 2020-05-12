@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../../../../common/services/auth.service';
 import { MiscService } from '../../../../common/services/misc.service';
 import { fileValidator } from './fileValidator';
-
+import {DomSanitizer} from '@angular/platform-browser'
 @Component({
   selector: 'app-register-form',
   templateUrl: './register-form.component.html',
@@ -13,7 +13,7 @@ export class RegisterFormComponent implements OnInit {
   @Output() onSuccess: EventEmitter<any> = new EventEmitter();
 
   file: any;
-  //imageUlr:any;
+  imageUrl:any;
   genders: any = [
     'Hombre',
     'Mujer',
@@ -40,7 +40,7 @@ export class RegisterFormComponent implements OnInit {
     password: new FormControl('', [Validators.required, Validators.minLength(8)]),
     role: new FormControl('doctor')
   });
-  constructor(private cd: ChangeDetectorRef, private _auth: AuthService, private _misc: MiscService) { }
+  constructor(private cd: ChangeDetectorRef, private _auth: AuthService, private _misc: MiscService, private sanitizer:DomSanitizer) { }
 
   ngOnInit(): void {
     this._misc.getCountires().then(data => {
@@ -75,7 +75,7 @@ export class RegisterFormComponent implements OnInit {
 
       reader.onload = () => {
         this.file = reader.result
-        //this.imageUlr = this.sanitizer.bypassSecurityTrustResourceUrl(this.file);
+        this.imageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.file);
       };
 
     }
