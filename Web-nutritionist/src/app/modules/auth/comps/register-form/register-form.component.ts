@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../../../../common/services/auth.service';
 import { MiscService } from '../../../../common/services/misc.service';
 import { fileValidator } from './fileValidator';
-import {DomSanitizer} from '@angular/platform-browser'
+import { DomSanitizer } from '@angular/platform-browser'
 @Component({
   selector: 'app-register-form',
   templateUrl: './register-form.component.html',
@@ -13,7 +13,8 @@ export class RegisterFormComponent implements OnInit {
   @Output() onSuccess: EventEmitter<any> = new EventEmitter();
 
   file: any;
-  imageUrl:any;
+  imageUrl: any;
+  response_errors:any;
   genders: any = [
     'Hombre',
     'Mujer',
@@ -34,13 +35,12 @@ export class RegisterFormComponent implements OnInit {
     state: new FormControl('', Validators.required),
     citie: new FormControl('', Validators.required),
     direction: new FormControl('', Validators.required),
-    card_id: new FormControl('', Validators.required),
     image: new FormControl('', [Validators.required, fileValidator]),
     user_name: new FormControl('', Validators.required),
     password: new FormControl('', [Validators.required, Validators.minLength(8)]),
     role: new FormControl('doctor')
   });
-  constructor(private cd: ChangeDetectorRef, private _auth: AuthService, private _misc: MiscService, private sanitizer:DomSanitizer) { }
+  constructor(private cd: ChangeDetectorRef, private _auth: AuthService, private _misc: MiscService, private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
     this._misc.getCountires().then(data => {
@@ -61,9 +61,9 @@ export class RegisterFormComponent implements OnInit {
 
   filterCitie(state: string): void {
     let index = this.data.findIndex(x => Object.keys(x)[0] == this.form.controls.countrie.value);
-    this.cities =     this.data[index][this.form.controls.countrie.value][state];
+    this.cities = this.data[index][this.form.controls.countrie.value][state];
     console.log(this.cities);
-    
+
   }
 
   onFileChange(event) {
@@ -82,20 +82,21 @@ export class RegisterFormComponent implements OnInit {
   }
 
   submit() {
-    let values = Object.assign({},this.form.value);
-    values.image = this.file;
-    console.log(this.form);
-    
-    if(this.form.valid){
-      this._auth.registerNutritionist(values).then(success=>{
-        this.onSuccess.emit({ success: true, user_name: this.form.controls.user_name.value })
-      }).catch(error=>{
-        console.error(error);
+    let values = Object.assign({}, this.form.value);
+    let array =this.file.split(',');
+    values.image = array[1];
+    values.data_type = array[0];
 
+    if (this.form.valid) {
+      this._auth.registerNutritionist(values).then(success => {
+        this.onSuccess.emit({ success: true, user_name: this.form.controls.user_name.value })
+      }).catch(error => {
+        console.error(error.error.errors);
+        this.response_errors = error.error.errors;
       })
-    }else{
+    } else {
       console.log(this.form.errors);
-      
+
     }
   }
 

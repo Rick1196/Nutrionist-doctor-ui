@@ -13,7 +13,7 @@
                         <div class="col">
                             <label>Imagen representativa</label>
                             <div class="custom-file" *ngIf="!imageUrl;else image">
-                                <input  type="file" id="image" class="custom-file-input" formControlName="image"
+                                <input type="file" id="image" class="custom-file-input" formControlName="image"
                                     accept="image/*" placeholder="Imagen representativa" (change)="onFileChange($event)"
                                     [ngClass]="(form.controls.image.invalid == true)?'is-invalid':''" />
                                 <label for="image" class="custom-file-label">Seleccionar imagen</label>
@@ -21,6 +21,7 @@
                                 <div class="invalid-feedback">
                                     Por favor, seleccione una archivo valido
                                 </div>
+                                
                             </div>
                         </div>
                         <div class="col">
@@ -34,6 +35,9 @@
                                     nombre de usuario
                                     es
                                     una campo <strong>requerido</strong>
+                                </div>
+                                <div class="errors" *ngIf="response_errors">
+                                    <span *ngIf="response_errors.user_name">{{response_errors.user_name}}</span>
                                 </div>
                             </div>
                         </div>
@@ -120,6 +124,9 @@
                                     El numero
                                     celular es
                                     una campo <strong>requerido</strong>
+                                </div>
+                                <div class="errors" *ngIf="response_errors">
+                                    <span *ngIf="response_errors.phone">{{response_errors.phone}}</span>
                                 </div>
                             </div>
                         </div>

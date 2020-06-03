@@ -1,19 +1,32 @@
-.card{
+.card {
     margin-left: auto;
     margin-right: auto;
-    width: 80%;
+    width: 50%;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    border-radius: 2em;
 }
-.card-divider{
-    background-color: #1779ba;
+.card-header {
+    background-color: #4d7e7e;
     color: white;
+    border-radius: 2em;
+    margin-bottom: 2em;
 }
-.text-center{
+.text-center {
     margin-left: auto;
     margin-right: auto;
 }
-.container{
-    padding: 2rem;
+.container {
+    padding: 2em;
 }
+.error{
+	color: red;
+}
+
+
+button,.alert {
+    border-radius: 2em;
+}
+
 $char-w: 1ch;
 $gap: .5*$char-w;
 $n-char: 4;

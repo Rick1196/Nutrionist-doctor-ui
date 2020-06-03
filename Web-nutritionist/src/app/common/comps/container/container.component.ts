@@ -3,6 +3,7 @@ import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
 import { faSignInAlt, faUserPlus, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
 import { AuthService } from '../../services/auth.service';
 import { Router } from '@angular/router'
+import {Location} from '@angular/common';
 @Component({
   selector: 'app-container',
   templateUrl: './container.component.html',
@@ -11,7 +12,7 @@ import { Router } from '@angular/router'
 export class ContainerComponent implements OnInit {
   isOffcanvas = true;
   session: any;
-  constructor(private library: FaIconLibrary, private _auth: AuthService, private _router: Router) {
+  constructor(private library: FaIconLibrary, private _auth: AuthService, private _router: Router, private _location:Location) {
     library.addIcons(faSignInAlt, faUserPlus, faSignOutAlt)
   }
 
@@ -29,7 +30,12 @@ export class ContainerComponent implements OnInit {
     });
   }
 
-  logout(){
-    this._auth.signOut();
+  async logout(){
+    await this._auth.signOut();
+    this._router.navigate(['auth/login']);
+  }
+
+  back():void{
+    this._location.back();
   }
 }

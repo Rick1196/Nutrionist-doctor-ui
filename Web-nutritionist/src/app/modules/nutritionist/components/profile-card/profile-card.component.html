@@ -1,0 +1,25 @@
+<div class="card">
+    <div class="card-header">
+        <h5 class="text-center">
+            Mi perfil
+        </h5>
+    </div>
+    <div class="row no-gutters">
+        <div class="col-md-4">
+            <img *ngIf="imageUrl" [src]="imageUrl" class="card-img" alt="...">
+        </div>
+        <div class="col-md-8">
+            <div class="card-body">
+                <h5 class="card-title">{{profile.user.first_name+' '+profile.user.last_name}}</h5>
+                <div>
+                    <strong>Loclidad:</strong>{{profile.user.citie}}
+                    <strong>Email:</strong>{{profile.user.email}}
+                    <strong>Telefono:</strong>{{profile.user.phone}}
+                </div>
+                <div>
+                    <a class="btn btn-outline-info btn-block" [routerLink]="['/nutritionist/profile']" routerLinkActive="router-link-active" [queryParams]="{user_name: user_name}">Editar perfil</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

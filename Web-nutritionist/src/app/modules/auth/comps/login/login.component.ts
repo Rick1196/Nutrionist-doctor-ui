@@ -22,7 +22,7 @@ export class LoginComponent implements OnInit {
   submit():void{
     console.log(this.form.valid);
     this._auth.loginUser(this.form.value).then(success=>{
-      this._router.navigate(['/nutritionist/home']);
+      this._router.navigate(['/nutritionist/home'], { queryParams: { user_name: this.form.controls.user_name.value},queryParamsHandling: 'merge'});
     }).catch(err=>{
       console.error(err.error.error);
       this.errorResponse = err.error.error;

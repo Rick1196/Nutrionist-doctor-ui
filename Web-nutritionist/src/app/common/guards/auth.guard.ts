@@ -7,11 +7,12 @@ import { CookieService } from 'ngx-cookie-service';
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-  constructor(private _cookies:CookieService){  }
+  constructor(private _cookies: CookieService) { }
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-    return  this._cookies.check('SESSIONID');
+    let session = localStorage.getItem('SESSIONID')
+    return (session)?true:false;
   }
-  
+
 }

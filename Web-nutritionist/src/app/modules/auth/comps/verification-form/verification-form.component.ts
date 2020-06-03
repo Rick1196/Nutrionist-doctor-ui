@@ -2,6 +2,7 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../../../../common/services/auth.service';
 import { ActivatedRoute } from '@angular/router';
+import { NutritionistService } from '../../../../common/services/nutritionist.service';
 @Component({
   selector: 'app-verification-form',
   templateUrl: './verification-form.component.html',
@@ -10,16 +11,23 @@ import { ActivatedRoute } from '@angular/router';
 export class VerificationFormComponent implements OnInit {
 
   user_name: string;
-  success:boolean = false;
+  response: string;
+  success: boolean = false;
   form = new FormGroup({
     confirmation_code: new FormControl('', [Validators.required, Validators.minLength(4)])
   });
 
-  constructor(private _auth: AuthService, private _router: ActivatedRoute) { }
+  constructor(private _auth: AuthService, private _router: ActivatedRoute, private _nutritionist: NutritionistService) { }
   ngOnInit(): void {
     this._router.queryParams.subscribe(params => {
       console.log(params);
       this.user_name = params.user_name;
+      this._nutritionist.isVerified(this.user_name).then(data => {
+        this.success = data.verified;
+      }).catch(error => {
+        console.error(error);
+
+      })
     })
   }
 
@@ -31,8 +39,8 @@ export class VerificationFormComponent implements OnInit {
       this._auth.verifyUser(data).then(success => {
         this.success = true;
       }).catch(error => {
-        console.error(error);
-
+        console.error(error.error.message);
+        this.response = error.error.message;
       })
     }
   }

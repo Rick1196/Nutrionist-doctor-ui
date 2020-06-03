@@ -15,8 +15,8 @@ export class AuthService {
 
   $session = new BehaviorSubject<any>(this.sessionStatus);
   constructor(private _http: HttpClient, private _cookies: CookieService) {
-    let session = _cookies.check('SESSIONID');
-    if (session == true) {
+    let session = localStorage.getItem('SESSIONID');
+    if (session) {
       let temp = JSON.parse(localStorage.getItem('_DATA'));
       temp.isLoggedIn = true;
       this.sessionStatus = Object.assign({}, temp);
@@ -54,7 +54,7 @@ export class AuthService {
           this.sessionStatus.email = data.email;
           this.sessionStatus.isLoggedIn = true;
           this.$session.next(this.sessionStatus);
-          this._cookies.set('SESSIONID', data.token);
+          localStorage.setItem('SESSIONID', data.token);
           localStorage.setItem('_DATA', JSON.stringify({ user: data.user, email: data.email }));
           resolve(data);
         },
@@ -63,9 +63,10 @@ export class AuthService {
     })
   }
 
-  signOut() {
+  async signOut() {
     this._cookies.deleteAll();
     sessionStorage.clear();
+    localStorage.clear();
     this.sessionStatus = {
       user: null,
       email: null,

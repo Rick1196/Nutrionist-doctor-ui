@@ -13,7 +13,8 @@ export class NotAuthGuard implements CanActivate {
   canActivate(
     next: ActivatedRouteSnapshot,
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
-      return  !this._cookies.check('SESSIONID');
+      let session = localStorage.getItem('SESSIONID')
+      return  (session)?false:true;
   }
    
 }
