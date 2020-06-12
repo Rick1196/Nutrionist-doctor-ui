@@ -1,19 +1,146 @@
-<div class="container" *ngIf="profile;else loading">
-    <div class="row">
-        <div class="col-4">
-            <div class="media">
-                <img [src]="imageUrl" class="mr-3">
+<div class="container mt-3" *ngIf="form;else loadingCont">
+    <form [formGroup]="form">
+        <div class="row">
+            <div class="col-4">
+                <div class="media mb-2">
+                    <img [src]="imageUrl" class="mr-3">
+                </div>
+                <button class="btn btn-outline-info btn-block">
+                    <label>
+                        Seleccionar nueva imagen
+                        <input formControlName="image" [ngClass]="(form.controls.image.invalid == true)?'is-invalid':''"
+                            type="file" accept="image/*" style="display: none" (change)="onFileChange($event)"
+                            file-handler>
+                        <div class="invalid-feedback">
+                            Por favor, seleccione una archivo valido
+                        </div>
+                    </label>
+                </button>
+
+            </div>
+            <div class="col-8">
+                <div class="input-group mb-2">
+                    <div class="input-group-prepend">
+                        <span class="input-group-text">Nombre y Apellido</span>
+                    </div>
+                    <input type="text" class="form-control"
+                        [ngClass]="(form.controls.first_name.invalid)?'is-invalid':''" formControlName="first_name"
+                        placeholder="Nombre(s)">
+                    <div class="invalid-feedback">
+                        El
+                        nombre es una campo <strong>requerido</strong>
+                    </div>
+                    <input type="text" class="form-control"
+                        [ngClass]="(form.controls.last_name.invalid)?'is-invalid':''" formControlName="last_name"
+                        placeholder="Apellido">
+                    <div class="invalid-feedback">
+                        El
+                        apellido es una campo <strong>requerido</strong>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label>Fecha de nacimiento</label>
+                            <input formControlName="birth_date" type="date" class="form-control"
+                                [ngClass]="(form.controls.birth_date.invalid)?'is-invalid':''"
+                                placeholder="Fecha de nacimiento" placement="top" />
+                            <div class="invalid-feedback">
+                                <div *ngIf="form.controls.birth_date.errors">
+                                    <p *ngIf="form.controls.birth_date.errors.required">
+                                        La fecha de nacimiento es campo requerido
+                                    </p>
+                                    <p *ngIf="form.controls.birth_date.errors.age">
+                                        Debe ser mayor de edad para registrarse
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label>Genero</label>
+                            <select formControlName="gender" class="custom-select"
+                                [ngClass]="(form.controls.gender.invalid)?'is-invalid':''">
+                                <option *ngFor="let g of genders" [value]="g">{{g}}</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Debe
+                                seleccionar un genero
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>Pais</label>
+                            <select class="custom-select" [ngClass]="(form.controls.countrie.invalid)?'is-invalid':''"
+                                formControlName="countrie" #st (change)="filterStates(st.value)">
+                                <option *ngFor="let c of countries" [value]="c">{{c}}</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Debe
+                                seleccionar un pais
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>Estado</label>
+                            <select class="custom-select" [ngClass]="(form.controls.state.invalid)?'is-invalid':''"
+                                formControlName="state" #ct (change)="filterCitie(ct.value)">
+                                <option *ngFor="let s of states" [value]="s">{{s}}</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Debe seleccionar
+                                un estado
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-4">
+                        <div class="form-group">
+                            <label>Ciudad</label>
+                            <select class="custom-select" [ngClass]="(form.controls.citie.invalid)?'is-invalid':''"
+                                formControlName="citie">
+                                <option *ngFor="let ct of cities" [value]="ct">{{ct}}</option>
+                            </select>
+                            <div class="invalid-feedback">
+                                Debe de
+                                seleccionar una ciudad
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="mb-2">
+                    <label>Direccion</label>
+                    <input type="text" class="form-control"
+                        [ngClass]="(form.controls.direction.invalid)?'is-invalid':''" formControlName="direction"
+                        placeholder="Direccion" />
+                    <div class="invalid-feedback">
+                        La direccion
+                        es
+                        una campo <strong>requerido</strong>
+                    </div>
+                </div>
+                <button (click)="loading = true;submit()" [disabled]="form.valid == false || loading == true"
+                    class="btn btn-outline-secondary btn-block">
+                    <div class="spinner-border" *ngIf="loading == true" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    Guardar Informacion
+                </button>
             </div>
         </div>
-        <div class="col-8">
-            
-        </div>
-    </div>
+    </form>
 </div>
-<ng-template #loading>
-    <div class="d-flex justify-content-center" style="margin-top: 10em;">
-        <div class="spinner-border" style="width: 8rem; height: 8rem;" role="status">
-            <span class="sr-only">Loading...</span>
+
+<ng-template #loadingCont>
+    <div class="container">
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
         </div>
     </div>
 </ng-template>

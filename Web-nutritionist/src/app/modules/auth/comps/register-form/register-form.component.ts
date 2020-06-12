@@ -2,8 +2,9 @@ import { Component, OnInit, ChangeDetectorRef, Output, EventEmitter } from '@ang
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../../../../common/services/auth.service';
 import { MiscService } from '../../../../common/services/misc.service';
-import { fileValidator } from './fileValidator';
+import { fileValidator } from '../../../../common/_helpers/fileValidator';
 import { DomSanitizer } from '@angular/platform-browser'
+import { ageValidator } from '../../../../common/_helpers/ageValidator';
 @Component({
   selector: 'app-register-form',
   templateUrl: './register-form.component.html',
@@ -11,10 +12,10 @@ import { DomSanitizer } from '@angular/platform-browser'
 })
 export class RegisterFormComponent implements OnInit {
   @Output() onSuccess: EventEmitter<any> = new EventEmitter();
-
+  loading: boolean = false;
   file: any;
   imageUrl: any;
-  response_errors:any;
+  response_errors: any;
   genders: any = [
     'Hombre',
     'Mujer',
@@ -27,7 +28,7 @@ export class RegisterFormComponent implements OnInit {
   form = new FormGroup({
     first_name: new FormControl('', Validators.required),
     last_name: new FormControl('', Validators.required),
-    birth_date: new FormControl('', [Validators.required]),
+    birth_date: new FormControl('', [Validators.required, ageValidator]),
     gender: new FormControl('', Validators.required),
     email: new FormControl('', [Validators.required, Validators.email]),
     phone: new FormControl('', [Validators.required, Validators.minLength(10), Validators.maxLength(11)]),
@@ -62,8 +63,6 @@ export class RegisterFormComponent implements OnInit {
   filterCitie(state: string): void {
     let index = this.data.findIndex(x => Object.keys(x)[0] == this.form.controls.countrie.value);
     this.cities = this.data[index][this.form.controls.countrie.value][state];
-    console.log(this.cities);
-
   }
 
   onFileChange(event) {
@@ -83,20 +82,19 @@ export class RegisterFormComponent implements OnInit {
 
   submit() {
     let values = Object.assign({}, this.form.value);
-    let array =this.file.split(',');
+    let array = this.file.split(',');
     values.image = array[1];
     values.data_type = array[0];
 
     if (this.form.valid) {
       this._auth.registerNutritionist(values).then(success => {
         this.onSuccess.emit({ success: true, user_name: this.form.controls.user_name.value })
+        this.loading = false;
       }).catch(error => {
+        this.loading = false;
         console.error(error.error.errors);
         this.response_errors = error.error.errors;
       })
-    } else {
-      console.log(this.form.errors);
-
     }
   }
 

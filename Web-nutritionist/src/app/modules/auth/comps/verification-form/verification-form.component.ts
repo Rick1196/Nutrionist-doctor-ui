@@ -20,7 +20,6 @@ export class VerificationFormComponent implements OnInit {
   constructor(private _auth: AuthService, private _router: ActivatedRoute, private _nutritionist: NutritionistService) { }
   ngOnInit(): void {
     this._router.queryParams.subscribe(params => {
-      console.log(params);
       this.user_name = params.user_name;
       this._nutritionist.isVerified(this.user_name).then(data => {
         this.success = data.verified;
@@ -43,6 +42,15 @@ export class VerificationFormComponent implements OnInit {
         this.response = error.error.message;
       })
     }
+  }
+
+  resend():void{
+    this._auth.resendCode(this.user_name).then(data=>{
+      this.response = data.message;
+    }).catch(err=>{
+      console.error(err);
+      
+    })
   }
 
 }

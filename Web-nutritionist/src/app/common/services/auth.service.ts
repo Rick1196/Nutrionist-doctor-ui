@@ -27,6 +27,14 @@ export class AuthService {
 
   }
 
+  resendCode(username:string):Promise<any>{
+    return new Promise((resolve,reject)=>{
+      this._http.get(`${environment.baseUrl}/v1/auth/resend-code/${username}`).subscribe(
+        data => resolve(data),
+        error => reject(error)
+      )
+    })
+  }
 
   registerNutritionist(data: any): Promise<any> {
     return new Promise((resolve, reject) => {

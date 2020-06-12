@@ -28,8 +28,11 @@
                 <div *ngIf="errorResponse" class="alert alert-danger" role="alert">
                     {{errorResponse}}
                 </div>
-                <button (click)="submit()" class="btn btn-outline-secondary btn-block" [disabled]="form.valid == false">Iniciar
-                    sesion</button>
+                <button (click)="loading = true;submit()" class="btn btn-outline-secondary btn-block" [disabled]="form.valid == false">
+                    <div class="spinner-border" *ngIf="loading == true" role="status">
+                        <span class="sr-only">Loading...</span>
+                    </div>
+                    Iniciar sesion</button>
                 <a [routerLink]="['/auth/verify']" *ngIf="user.value" [queryParams]="{user_name: user.value}"
                     queryParamsHandling="merge">Verificar usuario</a>
             </form>

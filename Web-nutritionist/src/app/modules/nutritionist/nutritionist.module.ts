@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 import { NutritionistRoutingModule } from './nutritionist-routing.module';
 import { HomeComponent } from './pages/home/home.component';
@@ -19,7 +20,7 @@ import { PatientsComponent } from './pages/patients/patients.component';
   declarations: [HomeComponent, ProfileCardComponent, PacientsCardComponent, ConsultationsCardComponent, GraphsCardComponent, MenuCardComponent, EquivalentsCardComponent, FoodsCardComponent, DiaryCardComponent, ProfileComponent, PatientsComponent],
   imports: [
     CommonModule,
-    NutritionistRoutingModule
+    NutritionistRoutingModule, FormsModule, ReactiveFormsModule
   ]
 })
 export class NutritionistModule { }
