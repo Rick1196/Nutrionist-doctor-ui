@@ -50,8 +50,6 @@ export class ProfileComponent implements OnInit {
         this._nutritionist.getNutritionistProfile(username).then(data => {
           this.profile = data;
           this.imageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.profile.data_type + ',' + this._nutritionist.toBase64(this.profile.image));
-          console.log(this.imageUrl);
-
           this.buildForm();
           this.setPlaces();
         })
@@ -64,7 +62,6 @@ export class ProfileComponent implements OnInit {
     if (event.target.files && event.target.files.length) {
       const [file] = event.target.files;
       reader.readAsDataURL(file);
-
       reader.onload = () => {
         this.file = reader.result
         this.imageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.file);
@@ -84,7 +81,7 @@ export class ProfileComponent implements OnInit {
     this.form = new FormGroup({
       first_name: new FormControl(this.profile.user.first_name, Validators.required),
       last_name: new FormControl(this.profile.user.last_name, Validators.required),
-      birth_date: new FormControl(this.profile.user.birth_date, [Validators.required, ageValidator]),
+      birth_date: new FormControl(this.profile.user.birth_date.toString().split("T")[0], [Validators.required, ageValidator]),
       gender: new FormControl(this.profile.user.gender, Validators.required),
       direction: new FormControl(this.profile.user.direction, Validators.required),
       countrie: new FormControl(this.profile.user.countrie, Validators.required),

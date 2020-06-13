@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import {Nutritionist} from '../entities/nutritionist';
+import { Nutritionist } from '../entities/nutritionist';
 import { BehaviorSubject } from 'rxjs';
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ export class NutritionistService {
 
   getNutritionistProfile(user_name: string): Promise<any> {
     return new Promise((resolve, reject) => {
-      this._http.get<Nutritionist>(`${environment.baseUrl}/v1/users/get-nutritionist-profile/${user_name}`).subscribe(
+      this._http.get<Nutritionist>(`${environment.baseUrl}/v1/nutritionist/get-nutritionist-profile/${user_name}`).subscribe(
         data => {
           resolve(data)
         },
