@@ -21,6 +21,25 @@ export class NutritionistService {
     })
   }
 
+  getStatistics(username: string): Promise<any> {
+    return new Promise((resolve, rejects) => {
+      this._http.get<any>(`${environment.baseUrl}/v1/nutritionist/get-statistics/${username}`).subscribe(
+        data => resolve(data),
+        error => rejects(error)
+      )
+    })
+  }
+
+
+  getConsultations(params: any): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this._http.post<any>(`${environment.baseUrl}/v1/schedule/filter-by-range`, params).subscribe(
+        data => resolve(data),
+        error => reject(error)
+      )
+    })
+  }
+
   isVerified(user_name: string): Promise<any> {
     return new Promise((resolve, reject) => {
       this._http.get<any>(`${environment.baseUrl}/v1/users/is-verified/${user_name}`).subscribe(
