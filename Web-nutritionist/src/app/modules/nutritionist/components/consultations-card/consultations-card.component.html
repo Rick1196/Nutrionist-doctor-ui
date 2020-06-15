@@ -5,12 +5,21 @@
         </h5>
     </div>
     <div class="card-body">
-        <h5 class="card-title">Card title</h5>
-        <p class="card-text">This is a longer card with supporting text below as a natural lead-in to
-            additional content. This content is a little bit longer.</p>
-        <!-- <a class="btn btn-outline-info btn-block" [routerLink]="['/nutritionist/patients']"
-            routerLinkActive="router-link-active" [queryParams]="{user_name: user_name}">
-            Historial de consultas
-        </a> -->
+        <h5 class="card-title">Consultas</h5>
+        <p class="card-text" *ngIf="todoToday; else loading">
+            Consultas pendientes el dia de hoy: {{todoToday.length}}
+        </p>
+        <a class="btn btn-outline-info btn-block" [routerLink]="['/nutritionist/diary']"
+            routerLinkActive="router-link-active" [queryParams]="{username: username}">
+            Ver mi agenda
+        </a> 
     </div>
 </div>
+
+<ng-template #loading>
+    <div class="d-flex justify-content-center align-items-cente">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
+</ng-template>

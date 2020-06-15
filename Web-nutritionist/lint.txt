@@ -1,0 +1,8 @@
+Linting "Web-nutritionist"...
+
+ERROR: /home/ricardo/Documents/Projects/Nutrionist/Nutrionist-doctor-ui/Web-nutritionist/src/app/modules/auth/comps/register-form/register-form.component.ts:14:3 - In the class "RegisterFormComponent", the output property "success" should not be named or renamed as a native event
+ERROR: /home/ricardo/Documents/Projects/Nutrionist/Nutrionist-doctor-ui/Web-nutritionist/src/app/modules/auth/comps/register-form/register-form.component.ts:50:9 - for (... in ...) statements must be filtered with an if statement
+ERROR: /home/ricardo/Documents/Projects/Nutrionist/Nutrionist-doctor-ui/Web-nutritionist/src/app/modules/nutritionist/pages/profile/profile.component.ts:38:5 - parameters are not aligned
+ERROR: /home/ricardo/Documents/Projects/Nutrionist/Nutrionist-doctor-ui/Web-nutritionist/src/app/modules/nutritionist/pages/profile/profile.component.ts:39:5 - parameters are not aligned
+ERROR: /home/ricardo/Documents/Projects/Nutrionist/Nutrionist-doctor-ui/Web-nutritionist/src/app/modules/nutritionist/pages/profile/profile.component.ts:46:9 - for (... in ...) statements must be filtered with an if statement
+

@@ -5,7 +5,10 @@ import { NotAuthGuard } from './common/guards/not-auth.guard';
 
 const routes: Routes = [
   { path: 'auth', loadChildren: () => import('./modules/auth/auth.module').then(m => m.AuthModule), canActivate: [NotAuthGuard] },
-  { path: 'nutritionist', loadChildren: () => import('./modules/nutritionist/nutritionist.module').then(m => m.NutritionistModule), canActivate: [AuthGuard] },
+  {
+    path: 'nutritionist', loadChildren: () => import('./modules/nutritionist/nutritionist.module')
+      .then(m => m.NutritionistModule), canActivate: [AuthGuard]
+  },
   { path: '', redirectTo: 'nutritionist/home', pathMatch: 'full', canActivate: [AuthGuard] }
 ];
 

@@ -1,9 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FaIconLibrary } from '@fortawesome/angular-fontawesome';
-import { faSignInAlt, faUserPlus, faSignOutAlt } from '@fortawesome/free-solid-svg-icons'
+import { faSignInAlt, faUserPlus, faSignOutAlt } from '@fortawesome/free-solid-svg-icons';
 import { AuthService } from '../../services/auth.service';
-import { Router } from '@angular/router'
-import {Location} from '@angular/common';
+import { Router } from '@angular/router';
+import { Location } from '@angular/common';
 @Component({
   selector: 'app-container',
   templateUrl: './container.component.html',
@@ -12,30 +12,30 @@ import {Location} from '@angular/common';
 export class ContainerComponent implements OnInit {
   isOffcanvas = true;
   session: any;
-  constructor(private library: FaIconLibrary, private _auth: AuthService, private _router: Router, private _location:Location) {
-    library.addIcons(faSignInAlt, faUserPlus, faSignOutAlt)
+  constructor(private library: FaIconLibrary, private auth: AuthService, private router: Router, private location: Location) {
+    library.addIcons(faSignInAlt, faUserPlus, faSignOutAlt);
   }
 
   ngOnInit(): void {
-    this._auth.$session.subscribe({
+    this.auth.$session.subscribe({
       next: (v: any) => {
-        let status = v;
-        if (status.isLoggedIn == true) {
+        const status = v;
+        if (status.isLoggedIn === true) {
           this.session = v;
         } else {
           this.session = null;
-          this._router.navigate(['']);
+          this.router.navigate(['']);
         }
       }
     });
   }
 
-  async logout(){
-    await this._auth.signOut();
-    this._router.navigate(['auth/login']);
+  async logout() {
+    await this.auth.signOut();
+    this.router.navigate(['auth/login']);
   }
 
-  back():void{
-    this._location.back();
+  back(): void {
+    this.location.back();
   }
 }

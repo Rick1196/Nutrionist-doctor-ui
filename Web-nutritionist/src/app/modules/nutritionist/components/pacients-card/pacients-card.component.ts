@@ -9,18 +9,18 @@ import { NutritionistService } from '../../../../common/services/nutritionist.se
 export class PacientsCardComponent implements OnInit {
   username: string;
   statistics: any;
-  constructor(private _router: ActivatedRoute, private _nutritionist: NutritionistService) { }
+  constructor(private router: ActivatedRoute, private nutritionist: NutritionistService) { }
 
   ngOnInit(): void {
-    this._router.queryParams.subscribe(params => {
-      this.username = params.user_name;
-      this._nutritionist.getStatistics(this.username).then(data => {
+    this.router.queryParams.subscribe(params => {
+      this.username = params.username;
+      this.nutritionist.getStatistics(this.username).then(data => {
         this.statistics = data;
       }).catch(error => {
         console.error(error);
 
-      })
-    })
+      });
+    });
   }
 
 }

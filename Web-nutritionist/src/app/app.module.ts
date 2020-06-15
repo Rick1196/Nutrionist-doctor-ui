@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { CookieService } from 'ngx-cookie-service';
-import { HttpHeadersInterceptor } from './common/insterceptors/http-headers.interceptor'
+import { HttpHeadersInterceptor } from './common/insterceptors/http-headers.interceptor';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ContainerComponent } from './common/comps/container/container.component';
@@ -25,7 +25,8 @@ import { ToastrModule } from 'ngx-toastr';
     AppRoutingModule,
     NgbModule,
     BrowserAnimationsModule,
-    FontAwesomeModule, ReactiveFormsModule, FormsModule, HttpClientModule, CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
+    FontAwesomeModule, ReactiveFormsModule, FormsModule, HttpClientModule,
+    CalendarModule.forRoot({ provide: DateAdapter, useFactory: adapterFactory }),
     BrowserAnimationsModule, // required animations module
     ToastrModule.forRoot() // ToastrModule added
   ],

@@ -36,8 +36,8 @@
                                     es
                                     una campo <strong>requerido</strong>
                                 </div>
-                                <div class="errors" *ngIf="response_errors">
-                                    <span *ngIf="response_errors.user_name">{{response_errors.user_name}}</span>
+                                <div class="errors" *ngIf="responseError">
+                                    <span *ngIf="responseError.user_name">{{responseError.user_name}}</span>
                                 </div>
                             </div>
                         </div>
@@ -131,8 +131,8 @@
                                     celular es
                                     una campo <strong>requerido</strong>
                                 </div>
-                                <div class="errors" *ngIf="response_errors">
-                                    <span *ngIf="response_errors.phone">{{response_errors.phone}}</span>
+                                <div class="errors" *ngIf="responseError">
+                                    <span *ngIf="responseError.phone">{{responseError.phone}}</span>
                                 </div>
                             </div>
                         </div>

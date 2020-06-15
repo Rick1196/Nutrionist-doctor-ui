@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import {ReactiveFormsModule,FormsModule} from '@angular/forms'
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { AuthRoutingModule } from './auth-routing.module';
 import { RegisterComponent } from './comps/register/register.component';
 import { LoginComponent } from './comps/login/login.component';
@@ -12,7 +12,7 @@ import { VerificationFormComponent } from './comps/verification-form/verificatio
   declarations: [RegisterComponent, LoginComponent, RegisterFormComponent, VerificationFormComponent],
   imports: [
     CommonModule,
-    AuthRoutingModule,ReactiveFormsModule,FormsModule
+    AuthRoutingModule, ReactiveFormsModule, FormsModule
   ]
 })
 export class AuthModule { }

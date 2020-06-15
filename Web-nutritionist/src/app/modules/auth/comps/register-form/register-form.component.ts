@@ -3,7 +3,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AuthService } from '../../../../common/services/auth.service';
 import { MiscService } from '../../../../common/services/misc.service';
 import { fileValidator } from '../../../../common/_helpers/fileValidator';
-import { DomSanitizer } from '@angular/platform-browser'
+import { DomSanitizer } from '@angular/platform-browser';
 import { ageValidator } from '../../../../common/_helpers/ageValidator';
 @Component({
   selector: 'app-register-form',
@@ -11,11 +11,11 @@ import { ageValidator } from '../../../../common/_helpers/ageValidator';
   styleUrls: ['./register-form.component.scss']
 })
 export class RegisterFormComponent implements OnInit {
-  @Output() onSuccess: EventEmitter<any> = new EventEmitter();
-  loading: boolean = false;
+  @Output() success: EventEmitter<any> = new EventEmitter();
+  loading = false;
   file: any;
   imageUrl: any;
-  response_errors: any;
+  responseError: any;
   genders: any = [
     'Hombre',
     'Mujer',
@@ -41,39 +41,39 @@ export class RegisterFormComponent implements OnInit {
     password: new FormControl('', [Validators.required, Validators.minLength(8)]),
     role: new FormControl('doctor')
   });
-  constructor(private cd: ChangeDetectorRef, private _auth: AuthService, private _misc: MiscService, private sanitizer: DomSanitizer) { }
+  constructor(private cd: ChangeDetectorRef, private auth: AuthService, private misc: MiscService, private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
-    this._misc.getCountires().then(data => {
+    this.misc.getCountires().then(data => {
       this.data = data;
       this.data.forEach(element => {
-        for (let c in element) {
+        for (const c in element) {
           this.countries.push(c);
         }
 
       });
-    })
+    });
   }
 
   filterStates(countrie: string): void {
-    let index = this.data.findIndex(x => Object.keys(x)[0] == countrie);
-    this.states = Object.keys(this.data[index][countrie])
+    const index = this.data.findIndex(x => Object.keys(x)[0] === countrie);
+    this.states = Object.keys(this.data[index][countrie]);
   }
 
   filterCitie(state: string): void {
-    let index = this.data.findIndex(x => Object.keys(x)[0] == this.form.controls.countrie.value);
+    const index = this.data.findIndex(x => Object.keys(x)[0] === this.form.controls.countrie.value);
     this.cities = this.data[index][this.form.controls.countrie.value][state];
   }
 
   onFileChange(event) {
-    let reader = new FileReader();
+    const reader = new FileReader();
 
     if (event.target.files && event.target.files.length) {
       const [file] = event.target.files;
       reader.readAsDataURL(file);
 
       reader.onload = () => {
-        this.file = reader.result
+        this.file = reader.result;
         this.imageUrl = this.sanitizer.bypassSecurityTrustResourceUrl(this.file);
       };
 
@@ -81,24 +81,22 @@ export class RegisterFormComponent implements OnInit {
   }
 
   submit() {
-    let values = Object.assign({}, this.form.value);
-    let array = this.file.split(',');
+    const values = Object.assign({}, this.form.value);
+    const array = this.file.split(',');
     values.image = array[1];
     values.data_type = array[0];
 
     if (this.form.valid) {
-      this._auth.registerNutritionist(values).then(success => {
-        this.onSuccess.emit({ success: true, user_name: this.form.controls.user_name.value })
+      this.auth.registerNutritionist(values).then(success => {
+        this.success.emit({ success: true, user_name: this.form.controls.user_name.value });
         this.loading = false;
       }).catch(error => {
         this.loading = false;
         console.error(error.error.errors);
-        this.response_errors = error.error.errors;
-      })
+        this.responseError = error.error.errors;
+      });
     }
   }
 
-  ngOnDestroy() {
-  }
 
 }

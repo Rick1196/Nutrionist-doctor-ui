@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { Router, ActivatedRoute } from '@angular/router'
+import { Router, ActivatedRoute } from '@angular/router';
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
@@ -7,15 +7,15 @@ import { Router, ActivatedRoute } from '@angular/router'
 })
 export class HomeComponent implements OnInit {
 
-  constructor(private _router: Router, private _activated: ActivatedRoute) { }
+  constructor(private router: Router) { }
 
   ngOnInit(): void {
-    let _info = JSON.parse(localStorage.getItem('_DATA'));
+    const info = JSON.parse(localStorage.getItem('_DATA'));
 
-    this._router.navigate(
+    this.router.navigate(
       [],
       {
-        queryParams: { user_name: _info.user },
+        queryParams: { username: info.user },
         queryParamsHandling: 'merge', // remove to replace all query params by provided
       });
   }
