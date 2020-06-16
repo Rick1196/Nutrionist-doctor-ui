@@ -4,14 +4,14 @@
 }
 .sticky {
     position: sticky;
-    z-index: 2;
+    z-index: 999;
     top: 0;
     width: 100%;
 }
-a:link,a:active{
+a:link,
+a:active {
     color: white;
 }
-.nav-link{
+.nav-link {
     color: white;
 }
-

@@ -1,3 +1,22 @@
-<label for="typeahead-focus">Buscar un paciente:</label>
-<input id="typeahead-template" type="text" class="form-control" [(ngModel)]="model" [ngbTypeahead]="search"/>
-<hr>
+<div class="container mb-2 mt-2">
+    <div class="row">
+        <div class="col">
+            <div class="list-group" style="position: relative;">
+                <a class="list-group-item" style="padding: 0; border-color: transparent;">
+                    <Label>Nombre del paciente</Label>
+                    <input type="text" class="form-control" [(ngModel)]="model" (ngModelChange)="onSearch($event)">
+                </a>
+                <div class="list-results">
+                    <a (click)="select(s)" class="list-group-item list-group-item-action"
+                        *ngFor="let s of filtered">{{s.user.first_name +' '+s.user.last_name}}</a>
+                </div>
+            </div>
+        </div>
+        <div class="col">
+            <label for="date">Fecha de la consulta</label>
+            <input class="form-control" name="date" type="text" mwlFlatpickr [(ngModel)]="event.date" [altInput]="true"
+                [convertModelValue]="true" [enableTime]="true" dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i"
+                placeholder="Fecha de la consulta" />
+        </div>
+    </div>
+</div>

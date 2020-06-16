@@ -6,7 +6,7 @@ import { CalendarModule, DateAdapter } from 'angular-calendar';
 import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import localeEs from '@angular/common/locales/es';
 import { EventFormComponent } from './components/event-form/event-form.component';
-
+import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 
 
 import { NutritionistRoutingModule } from './nutritionist-routing.module';
@@ -39,6 +39,7 @@ registerLocaleData(localeEs);
       provide: DateAdapter,
       useFactory: adapterFactory,
     }),
+    AutocompleteLibModule
   ]
 })
 export class NutritionistModule { }

@@ -1,9 +1,6 @@
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { NutritionistService } from '../../../../common/services/nutritionist.service';
-import { Observable, Subject, merge } from 'rxjs';
-import { debounceTime, distinctUntilChanged, filter, map } from 'rxjs/operators';
-import { NgbTypeahead } from '@ng-bootstrap/ng-bootstrap';
 
 @Component({
   selector: 'app-event-form',
@@ -14,9 +11,11 @@ export class EventFormComponent implements OnInit {
   @Input() data: any;
   username: string;
   patients: any[];
-  model: any;
-  focus$ = new Subject<string>();
-  click$ = new Subject<string>();
+  filtered: any[] = [];
+  model = '';
+  event = {
+    date: null
+  };
   constructor(private router: ActivatedRoute, private nutritionist: NutritionistService) { }
 
   ngOnInit(): void {
@@ -28,6 +27,12 @@ export class EventFormComponent implements OnInit {
       };
       this.nutritionist.getPatients(queryParams, this.username).then(data => {
         this.patients = data;
+        console.log(this.data);
+        if (this.data.patient_id) {
+          this.model = `${this.data.patient_id.user.first_name} ${this.data.patient_id.user.last_name}`;
+          this.event.date = this.data.start;
+        }
+
       }).catch(error => {
         console.error(error);
 
@@ -35,12 +40,22 @@ export class EventFormComponent implements OnInit {
     });
   }
 
-  search = (text$: Observable<string>) =>
-    text$.pipe(
-      debounceTime(200),
-      map(term => term === '' ? []
-        : this.patients.filter(v => v.user.first_name.toUpperCase().indexOf(term.toUpperCase()) > -1).slice(0, 10))
-    )
+  onSearch(text: any): void {
+    if (text.length > 2) {
+      this.filtered = this.patients.filter(x => (`${x.user.first_name} ${x.user.last_name}`.indexOf(text.toUpperCase()) > -1));
+      console.log(this.filtered);
+    } else {
+      this.filtered = [];
+    }
+    if (text === '') {
+      this.filtered = [];
+    }
+  }
+
+  select(s: any): void {
+    this.model = `${s.user.first_name} ${s.user.last_name}`;
+    this.filtered = [];
+  }
 
 
 }
