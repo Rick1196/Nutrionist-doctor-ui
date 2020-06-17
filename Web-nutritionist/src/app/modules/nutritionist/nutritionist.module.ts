@@ -7,7 +7,10 @@ import { adapterFactory } from 'angular-calendar/date-adapters/date-fns';
 import localeEs from '@angular/common/locales/es';
 import { EventFormComponent } from './components/event-form/event-form.component';
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
+import { DateFormaterPipe } from '../../common/_helpers/date-formater.pipe';
+import { AgeCalPipe } from '../../common/_helpers/age-cal.pipe';
 
 import { NutritionistRoutingModule } from './nutritionist-routing.module';
 import { HomeComponent } from './pages/home/home.component';
@@ -23,6 +26,8 @@ import { ProfileComponent } from './pages/profile/profile.component';
 import { PatientsComponent } from './pages/patients/patients.component';
 import { DiaryComponent } from './pages/diary/diary.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
+import { PatientCardComponent } from './components/patient-card/patient-card.component';
+import { ModalFormComponent } from './components/modal-form/modal-form.component';
 
 registerLocaleData(localeEs);
 
@@ -31,7 +36,9 @@ registerLocaleData(localeEs);
     PacientsCardComponent, ConsultationsCardComponent,
     GraphsCardComponent, MenuCardComponent, EquivalentsCardComponent,
     FoodsCardComponent, DiaryCardComponent, ProfileComponent, PatientsComponent,
-    DiaryComponent, CalendarComponent, EventFormComponent],
+    DiaryComponent, CalendarComponent, EventFormComponent, PatientCardComponent, DateFormaterPipe,
+    AgeCalPipe,
+    ModalFormComponent],
   imports: [
     CommonModule,
     NutritionistRoutingModule, FormsModule, ReactiveFormsModule, FlatpickrModule.forRoot(),
@@ -39,6 +46,7 @@ registerLocaleData(localeEs);
       provide: DateAdapter,
       useFactory: adapterFactory,
     }),
+    NgbModule,
     AutocompleteLibModule
   ]
 })

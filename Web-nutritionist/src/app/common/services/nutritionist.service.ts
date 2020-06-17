@@ -45,8 +45,8 @@ export class NutritionistService {
 
   getPatients(query: any, username: string): Promise<any> {
     let params = new HttpParams();
-    params.append('pagination', query.pagination);
-    params.append('params', query.params);
+    params = params.append('pagination', query.pagination);
+    params = params.append('hasParams', query.params);
     if (query.pagination === true) {
       params = params.append('size', query.size);
       params = params.append('page', query.page);
@@ -82,6 +82,24 @@ export class NutritionistService {
   putNutritionist(nutritionist: any): Promise<any> {
     return new Promise((resolve, reject) => {
       this.http.post<any>(`${environment.baseUrl}/v1/users/update-nutritionist-profile/`, nutritionist).subscribe(
+        data => resolve(data),
+        error => reject(error)
+      );
+    });
+  }
+
+  registerPatient(patient: any): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.http.post<any>(`${environment.baseUrl}/v1/patient/register-patient`, patient).subscribe(
+        data => resolve(data),
+        error => reject(error)
+      );
+    });
+  }
+
+  putPatient(patient: any): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.http.post<any>(`${environment.baseUrl}/v1/patient/update-patient`, patient).subscribe(
         data => resolve(data),
         error => reject(error)
       );

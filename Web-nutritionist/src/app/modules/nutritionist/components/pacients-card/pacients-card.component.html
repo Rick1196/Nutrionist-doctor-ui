@@ -14,7 +14,8 @@
                 <li><strong>Otros pacientes: </strong>{{statistics.others}}</li>
             </ul>
         </div>
-        <a class="btn btn-outline-info btn-block" [routerLink]="['/nutritionist/patients']" routerLinkActive="router-link-active" [queryParams]="{username: username}">
+        <a class="btn btn-outline-info btn-block" [routerLink]="['/nutritionist/patients']"
+            routerLinkActive="router-link-active" [queryParams]="{username: username, page:1, size:5}">
             Ver mis pacientes
         </a>
     </div>

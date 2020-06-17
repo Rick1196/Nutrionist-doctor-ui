@@ -16,4 +16,13 @@ export class MiscService {
       );
     });
   }
+
+  generateUsername(params: any): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.http.post<any>(`${environment.baseUrl}/v1/users/generate-user`, params).subscribe(
+        data => resolve(data),
+        error => reject(error)
+      );
+    });
+  }
 }

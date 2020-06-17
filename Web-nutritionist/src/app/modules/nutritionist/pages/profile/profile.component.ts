@@ -36,13 +36,14 @@ export class ProfileComponent implements OnInit {
 
   constructor(private toastr: ToastrService,
     private misc: MiscService, private router: ActivatedRoute,
+    // tslint:disable-next-line: align
     private nutritionist: NutritionistService, private sanitizer: DomSanitizer) { }
 
   ngOnInit(): void {
-
     this.misc.getCountires().then(data => {
       this.data = data;
       this.data.forEach(element => {
+        // tslint:disable-next-line: forin
         for (const c in element) {
           this.countries.push(c);
         }
@@ -76,7 +77,7 @@ export class ProfileComponent implements OnInit {
   getParams(): Promise<any> {
     return new Promise((resolve, reject) => {
       this.router.queryParams.subscribe((params) => {
-        resolve(params.user_name);
+        resolve(params.username);
       });
     });
   }
@@ -96,7 +97,6 @@ export class ProfileComponent implements OnInit {
   }
 
   setPlaces(): void {
-
     this.filterStates(this.profile.user.countrie);
     this.filterCitie(this.profile.user.state);
   }

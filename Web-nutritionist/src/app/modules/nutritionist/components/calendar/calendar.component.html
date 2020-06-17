@@ -1,7 +1,3 @@
-<div class="card mb-2 mt-2" *ngIf="selected">
-  <app-event-form [data]="selected"></app-event-form>
-</div>
-
 <div class="row text-center">
   <div class="col-md-4">
     <div class="btn-group">
@@ -154,8 +150,7 @@
       <pre>{{ modalData?.action }}</pre>
     </div>
     <div>
-      Event:
-      <pre>{{ modalData?.event | json }}</pre>
+      <app-event-form [data]="modalData.event"></app-event-form>
     </div>
   </div>
   <div class="modal-footer">

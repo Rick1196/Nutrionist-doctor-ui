@@ -19,23 +19,31 @@
 
             </div>
             <div class="col-8">
-                <div class="input-group mb-2">
-                    <div class="input-group-prepend">
-                        <span class="input-group-text">Nombre y Apellido</span>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="name">Nombres</label>
+                            <input type="text" name="name" class="form-control"
+                                [ngClass]="(form.controls.first_name.invalid)?'is-invalid':''"
+                                formControlName="first_name" placeholder="Nombre(s)">
+                            <div class="invalid-feedback">
+                                El
+                                nombre es una campo <strong>requerido</strong>
+                            </div>
+                        </div>
+
                     </div>
-                    <input type="text" class="form-control"
-                        [ngClass]="(form.controls.first_name.invalid)?'is-invalid':''" formControlName="first_name"
-                        placeholder="Nombre(s)">
-                    <div class="invalid-feedback">
-                        El
-                        nombre es una campo <strong>requerido</strong>
-                    </div>
-                    <input type="text" class="form-control"
-                        [ngClass]="(form.controls.last_name.invalid)?'is-invalid':''" formControlName="last_name"
-                        placeholder="Apellido">
-                    <div class="invalid-feedback">
-                        El
-                        apellido es una campo <strong>requerido</strong>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="lastname">Apellidos</label>
+                            <input type="text" name="lastname" class="form-control"
+                                [ngClass]="(form.controls.last_name.invalid)?'is-invalid':''"
+                                formControlName="last_name" placeholder="Apellido">
+                            <div class="invalid-feedback">
+                                El
+                                apellido es una campo <strong>requerido</strong>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="row">

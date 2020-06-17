@@ -1,0 +1,26 @@
+<div class="card mb-2 mt-2">
+    <h5 class="card-header">{{patient.user.first_name + ' ' + patient.user.last_name}}</h5>
+    <div class="card-body">
+        <h5 class="card-title">{{patient.user.gender}} de
+            {{ patient.user.birth_date | ageCal }} años
+        </h5>
+        <p></p>
+        <p class="card-text">Estado civil: {{patient.marital_status}}, Ocupacion: {{patient.ocupation}}</p>
+        <p class="card-text">Paciente desde:{{patient.user.register_date | dateFormater}}</p>
+        <button (click)="handleEvent('edit',patient)" class="btn btn-outline-info mr-2">Editar paciente</button>
+        <button (click)="handleEvent('schedule', patient)" class="btn btn-outline-info">Tomar medidas</button>
+    </div>
+</div>
+
+<ng-template #modalContent let-close="close">
+    <div class="modal-header">
+        <h5 class="modal-title" *ngIf="modalData.action=='edit'">Editando paciente</h5>
+        <h5 class="modal-title" *ngIf="modalData.action=='create'">Alta de paciente</h5>
+        <h5 class="modal-title" *ngIf="modalData.action=='schedulte'">Agendar una consulta</h5>
+
+        <button type="button" class="close" (click)="close()">
+            <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    <app-modal-form [modalData]="modalData" (closeEv)="closeFun($event)"></app-modal-form>
+</ng-template>
