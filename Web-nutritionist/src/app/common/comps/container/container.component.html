@@ -43,7 +43,16 @@
                 {{session.user}}
             </a>
             <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-                <a class="dropdown-item" (click)="logout()">Cerrar sesion</a>
+                <a class="dropdown-item" style="color: black;" [routerLink]="['/']"
+                    [queryParams]="{username: session.user}">Inicio</a>
+                <a class="dropdown-item" style="color: black;" [routerLink]="['/nutritionist/profile']"
+                    [queryParams]="{username: session.user}">Mi perfil</a>
+                <a class="dropdown-item" style="color: black;" [routerLink]="['/nutritionist/patients']"
+                    [queryParams]="{username: session.user}">Pacientes</a>
+                <a class="dropdown-item" style="color: black;" [routerLink]="['/nutritionist/diary']"
+                    [queryParams]="{username: session.user}">Consultas</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" (click)="logout()" style="color: black;">Cerrar sesion</a>
             </div>
         </li>
     </ul>
