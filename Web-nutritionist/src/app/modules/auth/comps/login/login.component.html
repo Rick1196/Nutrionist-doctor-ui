@@ -18,21 +18,27 @@
                 </div>
                 <div class="form-group">
                     <label for="password">Contraseña</label>
-                    <input type="password" class="form-control"  [ngClass]="(form.controls.password.invalid  && form.controls.password.touched)?'is-invalid':''"  formControlName="password" placeholder="Contraseña" />
+                    <input type="password" class="form-control"
+                        [ngClass]="(form.controls.password.invalid  && form.controls.password.touched)?'is-invalid':''"
+                        formControlName="password" placeholder="Contraseña" />
                     <div class="invalid-feedback">
                         La contraseña
                         es una
                         campo <strong>requerido</strong>
                     </div>
-                </div>               
+                </div>
                 <div *ngIf="errorResponse" class="alert alert-danger" role="alert">
                     {{errorResponse}}
                 </div>
-                <button (click)="loading = true;submit()" class="btn btn-outline-secondary btn-block" [disabled]="form.valid == false">
+                <button (click)="loading = true;submit()" class="btn btn-outline-secondary btn-block"
+                    [disabled]="form.valid == false">
                     <div class="spinner-border" *ngIf="loading == true" role="status">
                         <span class="sr-only">Loading...</span>
                     </div>
-                    Iniciar sesion</button>
+                    Iniciar sesion
+                </button>
+                <a style="color:black" [routerLink]="['/auth/register']"
+                    routerLinkActive="router-link-active">Registrarse</a>
                 <a [routerLink]="['/auth/verify']" *ngIf="user.value" [queryParams]="{user_name: user.value}"
                     queryParamsHandling="merge">Verificar usuario</a>
             </form>

@@ -1,25 +1,24 @@
-.card{
-    margin-left: auto;
-    margin-right: auto;
-    width: 80%;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    border-radius: 2em;
+.card {
+  width: 100%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 2em;
 }
-.card-header{
-    background-color: #4d7e7e;
-    color: white;
-    border-radius: 2em;
-    margin-bottom: 2em;
+.card-header {
+  background-color: #4d7e7e;
+  color: white;
+  border-radius: 2em;
+  margin-bottom: 2em;
 }
-.text-center{
-    margin-left: auto;
-    margin-right: auto;
+.text-center {
+  margin-left: auto;
+  margin-right: auto;
 }
-.container{
-    padding: 2em;
+.container {
+  padding: 2em;
 }
 
 input,
-button,.alert {
-    border-radius: 2em;
+button,
+.alert {
+  border-radius: 2em;
 }
