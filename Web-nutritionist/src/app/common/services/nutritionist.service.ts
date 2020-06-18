@@ -97,9 +97,27 @@ export class NutritionistService {
     });
   }
 
+  scheduleConsultation(param: any): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.http.post<any>(`${environment.baseUrl}/v1/schedule/new-date`, param).subscribe(
+        data => resolve(data),
+        error => reject(error)
+      );
+    });
+  }
+
   putPatient(patient: any): Promise<any> {
     return new Promise((resolve, reject) => {
       this.http.post<any>(`${environment.baseUrl}/v1/patient/update-patient`, patient).subscribe(
+        data => resolve(data),
+        error => reject(error)
+      );
+    });
+  }
+
+  putConsultation(consultation: any): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.http.post<any>(`${environment.baseUrl}/v1/schedule/put-date`, consultation).subscribe(
         data => resolve(data),
         error => reject(error)
       );

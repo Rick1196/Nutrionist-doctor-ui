@@ -2,7 +2,7 @@ import { Component, OnInit, Input, EventEmitter, Output } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { MiscService } from '../../../../common/services/misc.service';
 import { ToastrService } from 'ngx-toastr';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 import { NutritionistService } from '../../../../common/services/nutritionist.service';
 
 @Component({
@@ -153,7 +153,7 @@ export class ModalFormComponent implements OnInit {
       `${title}`,
       `${body}`,
       'success'
-    )
+    );
   }
 
   showSuccess(title: string, body: string) {

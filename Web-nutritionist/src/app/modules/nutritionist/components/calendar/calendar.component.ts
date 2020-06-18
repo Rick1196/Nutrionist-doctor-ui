@@ -57,6 +57,20 @@ export class CalendarComponent implements OnInit {
 
   @ViewChild('modalContent', { static: true }) modalContent: TemplateRef<any>;
   locale = 'es';
+  newEvent = {
+    title: '',
+    start: startOfDay(new Date()),
+    end: endOfDay(new Date()),
+    color: colors.blue,
+    draggable: true,
+    resizable: {
+      beforeStart: true,
+      afterEnd: true,
+    },
+    duration: '',
+    nutritionist: ''
+  };
+
   view: CalendarView = CalendarView.Month;
 
   CalendarView = CalendarView;
@@ -98,20 +112,25 @@ export class CalendarComponent implements OnInit {
   ngOnInit() {
     this.router.queryParams.subscribe(params => {
       this.username = params.username;
+      this.newEvent.nutritionist = this.username;
       this.params.nutritionist = this.username;
       this.params.start = startOfMonth(new Date());
       this.params.end = endOfMonth(new Date());
       this.params.atended = false;
-      this.nutritionist.getConsultations(this.params).then(data => {
-        data.forEach(e => {
-          e.end = new Date(e.end);
-          e.start = new Date(e.start);
-        });
-        this.events = data;
-      }).catch(error => {
-        console.error(error);
+      this.retriveConsultations();
+    });
+  }
 
+  retriveConsultations() {
+    this.nutritionist.getConsultations(this.params).then(data => {
+      data.forEach(e => {
+        e.end = new Date(e.end);
+        e.start = new Date(e.start);
       });
+      this.events = data;
+    }).catch(error => {
+      console.error(error);
+
     });
   }
 
@@ -179,6 +198,14 @@ export class CalendarComponent implements OnInit {
 
   closeOpenMonthViewDay() {
     this.activeDayIsOpen = false;
+
+  }
+
+  closeFun(event: any) {
+    if (event === true) {
+      this.modal.dismissAll();
+      this.retriveConsultations();
+    }
   }
 
 }

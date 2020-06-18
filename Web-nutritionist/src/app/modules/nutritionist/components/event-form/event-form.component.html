@@ -1,22 +1,87 @@
-<div class="container mb-2 mt-2">
-    <div class="row">
-        <div class="col">
-            <div class="list-group" style="position: relative;">
-                <a class="list-group-item" style="padding: 0; border-color: transparent;">
-                    <Label>Nombre del paciente</Label>
-                    <input type="text" class="form-control" [(ngModel)]="model" (ngModelChange)="onSearch($event)">
-                </a>
-                <div class="list-results">
-                    <a (click)="select(s)" class="list-group-item list-group-item-action"
-                        *ngFor="let s of filtered">{{s.user.first_name +' '+s.user.last_name}}</a>
+<div class="modal-body">
+    <div class="container mb-2 mt-2" *ngIf="form; else loadingCont">
+        <form [formGroup]="form">
+            <div class="row mt-2 mb-2">
+                <div class="col">
+                    <div class="list-group" style="position: relative;">
+                        <a class="list-group-item" style="padding: 0; border-color: transparent;">
+                            <Label>Nombre del paciente</Label>
+                            <input type="text" class="form-control"
+                                [ngClass]="(form.controls.patient.invalid === true)?'is-invalid':''"
+                                formControlName="patient" (ngModelChange)="onSearch($event)">
+                        </a>
+                        <div class="list-results">
+                            <a (click)="select(s)" class="list-group-item list-group-item-action"
+                                *ngFor="let s of filtered">{{s.user.first_name +' '+s.user.last_name}}</a>
+                        </div>
+                        <div *ngIf="form.controls.patient.errors">
+                            <p *ngIf="form.controls.patient.errors.required" style="color: red;font-size: smaller;">
+                                Debe seleccionar un paciente para la consulta
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="col">
+                    <label for="date">Fecha de la consulta</label>
+                    <input class="form-control" name="date" type="text" mwlFlatpickr formControlName="start"
+                        [altInput]="true" [convertModelValue]="true" [enableTime]="true" dateFormat="Y-m-dTH:i"
+                        altFormat="F j, Y H:i" placeholder="Fecha de la consulta" />
+                    <div *ngIf="form.controls.start.errors">
+                        <p *ngIf="form.controls.start.errors.required" style="color: red;font-size: smaller;">
+                            Debe seleccionar una fecha para la consulta.
+                        </p>
+                        <p *ngIf="form.controls.start.errors.date" style="color: red;font-size: smaller;">
+                            No puede agendar consultas en el pasado.
+                        </p>
+                    </div>
                 </div>
             </div>
-        </div>
-        <div class="col">
-            <label for="date">Fecha de la consulta</label>
-            <input class="form-control" name="date" type="text" mwlFlatpickr [(ngModel)]="event.date" [altInput]="true"
-                [convertModelValue]="true" [enableTime]="true" dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i"
-                placeholder="Fecha de la consulta" />
-        </div>
+            <div class="row mt-2 mb-2">
+                <div class="col-sm-3">
+                    <label for=" color">Color Primario</label>
+                    <input type="color" formControlName="primary" />
+                </div>
+                <div class="col-sm-3">
+                    <label for=" colorS">Color Secundario</label>
+                    <input type="color" formControlName="secondary" />
+                </div>
+                <div class="col">
+                    <div class="form-group">
+                        <label for="durations">Duracion de la consulta</label>
+                        <select name="durations" [ngClass]="(form.controls.duration.invalid === true)?'is-invalid':''"
+                            formControlName="duration" class="custom-select">
+                            <option value="0" disabled selected>Duracion</option>
+                            <option [value]="d.minutes" *ngFor="let d of durations">{{d.name}}</option>
+                        </select>
+                        <div class="invalid-feedback">
+                            <div *ngIf="form.controls.duration.errors">
+                                <p *ngIf="form.controls.duration.errors.required">
+                                    Debe indicar la duracion de la consulta
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
     </div>
 </div>
+<div class="modal-footer" *ngIf="form">
+    <button type="button" class="btn btn-outline-secondary" [disabled]="loading === true || form.valid === false"
+        (click)="loading = true;save()">
+        <div class="spinner-border" *ngIf="loading === true" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+        Guardar cambios
+    </button>
+</div>
+
+<ng-template #loadingCont>
+    <div class="container">
+        <div class="d-flex justify-content-center">
+            <div class="spinner-border" role="status">
+                <span class="sr-only">Loading...</span>
+            </div>
+        </div>
+    </div>
+</ng-template>
