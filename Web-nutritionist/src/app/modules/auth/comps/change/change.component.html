@@ -1,0 +1,48 @@
+<div class="container">
+    <div class="card" *ngIf="success == false; else verified">
+        <div class="card-header">
+            <h4 class="text-center">Verificacion de usuario</h4>
+        </div>
+        <div class="card-body" style="padding: 1rem;">
+            <h3 style="text-align: center;">Hemos enviado un codigo de seguridad al numero celular que proporcionaste
+            </h3>
+            <h5 class="text-center">Codigo de seguridad</h5>
+            <form [formGroup]="form">
+                <input maxlength='4' class="code" formControlName="confirmation_code" />
+                <div class="d-flex justify-content-center mb-3">
+                    <input type="password" placeholder="Nuevo password" maxlength="12" formControlName="password">
+                </div>
+                <div class="row">
+                    <div class="col"><button (click)="confirm()" class="btn btn-outline-info btn-block">Cambiar
+                            password</button></div>
+                    <div class="col"><button (click)="resend()" class="btn btn-outline-warning btn-block">No tengo el
+                            codigo</button></div>
+                </div>
+            </form>
+            <div *ngIf="form.controls.confirmation_code.invalid" style="margin-top: 1em;"
+                class="alert alert-danger text-center" role="alert">
+                Por favor, introducir un codigo de seguridad valido
+            </div>
+            <div *ngIf="response" class="alert alert-danger text-center" style="margin-top: 1em;" role="alert">
+                {{response}}
+            </div>
+        </div>
+    </div>
+</div>
+
+<ng-template #verified>
+    <div class="card">
+        <div class="card-header">
+            <h4>Cambio de password</h4>
+        </div>
+        <div class="card-body" style="padding: 1rem;">
+            <h2 class="text-center">Cambio de password exitosa</h2>
+            <div class="alert alert-info text-center" style="margin-top: 1em;" role="alert">
+                <a [routerLink]="['/auth/login']" class="text-center" routerLinkActive="router-link-active"
+                    class="button small expanded">
+                    Iniciar sesion
+                </a>
+            </div>
+        </div>
+    </div>
+</ng-template>

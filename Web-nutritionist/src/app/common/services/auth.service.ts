@@ -36,6 +36,24 @@ export class AuthService {
     });
   }
 
+  requestChange(username: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.http.get(`${environment.baseUrl}/v1/auth/request-change/${username}`).subscribe(
+        data => resolve(data),
+        error => reject(error)
+      );
+    });
+  }
+
+  changePassword(username: string, password: string, code: string): Promise<any> {
+    return new Promise((resolve, reject) => {
+      this.http.get(`${environment.baseUrl}/v1/auth/change-password/${username}/${password}/${code}`).subscribe(
+        data => resolve(data),
+        error => reject(error)
+      );
+    });
+  }
+
   registerNutritionist(data: any): Promise<any> {
     return new Promise((resolve, reject) => {
       this.http.post<any>(`${environment.baseUrl}/v1/auth/register-nutritionist`, data).subscribe(

@@ -6,10 +6,11 @@ import { RegisterComponent } from './comps/register/register.component';
 import { LoginComponent } from './comps/login/login.component';
 import { RegisterFormComponent } from './comps/register-form/register-form.component';
 import { VerificationFormComponent } from './comps/verification-form/verification-form.component';
+import { ChangeComponent } from './comps/change/change.component';
 
 
 @NgModule({
-  declarations: [RegisterComponent, LoginComponent, RegisterFormComponent, VerificationFormComponent],
+  declarations: [RegisterComponent, LoginComponent, RegisterFormComponent, VerificationFormComponent, ChangeComponent],
   imports: [
     CommonModule,
     AuthRoutingModule, ReactiveFormsModule, FormsModule

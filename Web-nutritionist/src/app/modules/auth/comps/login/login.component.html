@@ -37,10 +37,19 @@
                     </div>
                     Iniciar sesion
                 </button>
-                <a style="color:black" [routerLink]="['/auth/register']"
-                    routerLinkActive="router-link-active">Registrarse</a>
-                <a [routerLink]="['/auth/verify']" *ngIf="user.value" [queryParams]="{username: user.value}"
-                    queryParamsHandling="merge">Verificar usuario</a>
+                <div class="mt-1 mb-1">
+                    <a (click)="sendCode()" routerLinkActive="router-link-active">He olvidado mi password</a>
+
+                </div>
+                <div class="mt-1 mb-1">
+                    <a [routerLink]="[' /auth/register']" routerLinkActive="router-link-active">Registrarse</a>
+
+                </div>
+                <div class="mt-1 mb-1">
+                    <a [routerLink]="['/auth/verify']" *ngIf="user.value" [queryParams]="{username: user.value}"
+                        queryParamsHandling="merge">Verificar usuario</a>
+
+                </div>
             </form>
         </div>
 

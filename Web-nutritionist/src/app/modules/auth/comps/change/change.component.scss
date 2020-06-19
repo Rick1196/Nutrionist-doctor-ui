@@ -1,0 +1,56 @@
+.card {
+  margin-left: auto;
+  margin-right: auto;
+  width: 50%;
+  box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+  border-radius: 2em;
+}
+.card-header {
+  background-color: #4d7e7e;
+  color: white;
+  border-radius: 2em;
+  margin-bottom: 2em;
+}
+.text-center {
+  margin-left: auto;
+  margin-right: auto;
+}
+.container {
+  padding: 2em;
+}
+.error {
+  color: red;
+}
+
+button,
+.alert {
+  border-radius: 2em;
+}
+
+$char-w: 1ch;
+$gap: 0.5 * $char-w;
+$n-char: 4;
+$in-w: $n-char * ($char-w + $gap);
+
+input.code {
+  display: block;
+  margin: 1em auto;
+  border: none;
+  padding: 0;
+  width: $in-w;
+  background: repeating-linear-gradient(
+      90deg,
+      dimgrey 0,
+      dimgrey $char-w,
+      transparent 0,
+      transparent $char-w + $gap
+    )
+    0 100% / #{$in-w - $gap} 2px no-repeat;
+  font: 5ch droid sans mono, consolas, monospace;
+  letter-spacing: $gap;
+
+  &:focus {
+    outline: none;
+    color: dodgerblue;
+  }
+}

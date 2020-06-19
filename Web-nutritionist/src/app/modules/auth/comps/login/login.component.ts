@@ -42,9 +42,26 @@ export class LoginComponent implements OnInit {
     }).catch((err) => {
       this.loading = false;
       if (err.error.errors) {
+        this.errorResponse = err.error.errors[0].message.username;
+
+      } else {
+        this.errorResponse = err.error.error;
+      }
+    });
+  }
+
+  sendCode() {
+    this.auth.requestChange(this.form.controls.user_name.value).then(data => {
+      this.router.navigate(['auth/change-password'],
+        {
+          queryParams: { username: this.form.controls.user_name.value },
+          queryParamsHandling: 'merge',
+        });
+    }).catch(err => {
+      if (err.error.errors) {
         console.log('ad');
 
-        this.errorResponse = err.error.errors[0].message.username;
+        this.errorResponse = err.error.errors[0].message.message;
 
       } else {
         console.log('bas');
