@@ -9,7 +9,6 @@ import { EventFormComponent } from './components/event-form/event-form.component
 import { AutocompleteLibModule } from 'angular-ng-autocomplete';
 import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
-import { DateFormaterPipe } from '../../common/_helpers/date-formater.pipe';
 import { AgeCalPipe } from '../../common/_helpers/age-cal.pipe';
 
 import { NutritionistRoutingModule } from './nutritionist-routing.module';
@@ -28,6 +27,7 @@ import { DiaryComponent } from './pages/diary/diary.component';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { PatientCardComponent } from './components/patient-card/patient-card.component';
 import { ModalFormComponent } from './components/modal-form/modal-form.component';
+import { SharedModule } from '../../common/shared/shared.module';
 
 registerLocaleData(localeEs);
 
@@ -36,7 +36,7 @@ registerLocaleData(localeEs);
     PacientsCardComponent, ConsultationsCardComponent,
     GraphsCardComponent, MenuCardComponent, EquivalentsCardComponent,
     FoodsCardComponent, DiaryCardComponent, ProfileComponent, PatientsComponent,
-    DiaryComponent, CalendarComponent, EventFormComponent, PatientCardComponent, DateFormaterPipe,
+    DiaryComponent, CalendarComponent, EventFormComponent, PatientCardComponent,
     AgeCalPipe,
     ModalFormComponent],
   imports: [
@@ -47,7 +47,8 @@ registerLocaleData(localeEs);
       useFactory: adapterFactory,
     }),
     NgbModule,
-    AutocompleteLibModule
+    AutocompleteLibModule,
+    SharedModule
   ]
 })
 export class NutritionistModule { }

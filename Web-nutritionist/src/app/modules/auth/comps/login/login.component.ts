@@ -21,17 +21,36 @@ export class LoginComponent implements OnInit {
   }
   submit(): void {
     this.auth.loginUser(this.form.value).then((success) => {
-      this.router.navigate(
-        ['/nutritionist/home'],
-        {
-          queryParams: { username: this.form.controls.user_name.value },
-          queryParamsHandling: 'merge',
-        },
-      );
+      if (success.role === 'doctor') {
+        this.router.navigate(
+          ['/nutritionist/home'],
+          {
+            queryParams: { username: this.form.controls.user_name.value },
+            queryParamsHandling: 'merge',
+          },
+        );
+      } else {
+        this.router.navigate(
+          ['/patient/home'],
+          {
+            queryParams: { username: this.form.controls.user_name.value },
+            queryParamsHandling: 'merge',
+          },
+        );
+      }
+
     }).catch((err) => {
       this.loading = false;
-      console.error(err.error.errors);
-      this.errorResponse = err.error.errors[0].message.username;
+      if (err.error.errors) {
+        console.log('ad');
+
+        this.errorResponse = err.error.errors[0].message.username;
+
+      } else {
+        console.log('bas');
+
+        this.errorResponse = err.error.error;
+      }
     });
   }
 }

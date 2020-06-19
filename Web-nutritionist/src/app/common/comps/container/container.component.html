@@ -20,8 +20,7 @@
 
             </li>
         </ul>
-        <a class="navbar-brand" style="color: white;" [routerLink]="['/']"
-            routerLinkActive="router-link-active">Nutritionist</a>
+        <a class="navbar-brand" style="color: white;" routerLinkActive="router-link-active">Nutritionist</a>
     </div>
 </nav>
 
@@ -36,7 +35,7 @@
                 clip-rule="evenodd" />
         </svg>
     </button>
-    <ul class="navbar-nav mr-auto mt-2 mt-lg-0" style="color: white;">
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0" *ngIf="session.role === 'doctor'" style="color: white;">
         <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
                 data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
@@ -51,6 +50,20 @@
                     [queryParams]="{username: session.user}">Pacientes</a>
                 <a class="dropdown-item" style="color: black;" [routerLink]="['/nutritionist/diary']"
                     [queryParams]="{username: session.user}">Consultas</a>
+                <div class="dropdown-divider"></div>
+                <a class="dropdown-item" (click)="logout()" style="color: black;">Cerrar sesion</a>
+            </div>
+        </li>
+    </ul>
+    <ul class="navbar-nav mr-auto mt-2 mt-lg-0" *ngIf="session.role === 'patient'" style="color: white;">
+        <li class="nav-item dropdown">
+            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button"
+                data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                {{session.user}}
+            </a>
+            <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                <a class="dropdown-item" style="color: black;" [routerLink]="['/patient/home']"
+                    [queryParams]="{username: session.user}">Inicio</a>
                 <div class="dropdown-divider"></div>
                 <a class="dropdown-item" (click)="logout()" style="color: black;">Cerrar sesion</a>
             </div>

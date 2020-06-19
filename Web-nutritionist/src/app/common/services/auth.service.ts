@@ -9,6 +9,7 @@ export class AuthService {
   sessionStatus = {
     user: null,
     email: null,
+    role: null,
     isLoggedIn: false
   };
 
@@ -59,10 +60,11 @@ export class AuthService {
         data => {
           this.sessionStatus.user = data.user;
           this.sessionStatus.email = data.email;
+          this.sessionStatus.role = data.role;
           this.sessionStatus.isLoggedIn = true;
           this.$session.next(this.sessionStatus);
           localStorage.setItem('SESSIONID', data.token);
-          localStorage.setItem('_DATA', JSON.stringify({ user: data.user, email: data.email }));
+          localStorage.setItem('_DATA', JSON.stringify({ user: data.user, email: data.email, role: data.role }));
           resolve(data);
         },
         error => reject(error)
@@ -76,6 +78,7 @@ export class AuthService {
     this.sessionStatus = {
       user: null,
       email: null,
+      role: null,
       isLoggedIn: false
     };
     this.$session.next(this.sessionStatus);

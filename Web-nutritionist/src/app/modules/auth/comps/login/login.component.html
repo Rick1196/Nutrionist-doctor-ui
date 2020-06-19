@@ -39,7 +39,7 @@
                 </button>
                 <a style="color:black" [routerLink]="['/auth/register']"
                     routerLinkActive="router-link-active">Registrarse</a>
-                <a [routerLink]="['/auth/verify']" *ngIf="user.value" [queryParams]="{user_name: user.value}"
+                <a [routerLink]="['/auth/verify']" *ngIf="user.value" [queryParams]="{username: user.value}"
                     queryParamsHandling="merge">Verificar usuario</a>
             </form>
         </div>

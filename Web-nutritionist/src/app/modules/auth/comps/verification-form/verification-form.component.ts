@@ -21,6 +21,8 @@ export class VerificationFormComponent implements OnInit {
   ngOnInit(): void {
     this.router.queryParams.subscribe(params => {
       this.username = params.username;
+      console.log(this.username);
+
       this.nutritionist.isVerified(this.username).then(data => {
         this.success = data.verified;
       }).catch(error => {
